@@ -1721,6 +1721,7 @@ var Signup = function () {
 
       $form.on('submit', function (e) {
         e.preventDefault();
+        alert('foi');
         _this2.submitForm(e.target);
       });
 
