@@ -1721,8 +1721,48 @@ var Signup = function () {
 
       $form.on('submit', function (e) {
         e.preventDefault();
-        alert('foi');
-        _this2.submitForm(e.target);
+        var err = true;
+        var messageErr = '';
+        var messageSuccess = '';
+
+        if ((0, _jquery2.default)('.copaair-form-name').val() == '') {
+          err = false;
+          messageErr;
+        }
+
+        if ((0, _jquery2.default)('.copaair-form-lastname').val() == '') {
+          err = false;
+          messageErr;
+        }
+
+        if ((0, _jquery2.default)('copaair-form-email').val() == '') {
+          err = false;
+          messageErr;
+        }
+
+        if ((0, _jquery2.default)('.js-country-selector').val() == '') {
+          err = false;
+          messageErr;
+        }
+
+        if ((0, _jquery2.default)('.js-city-selector').val() == '') {
+          err = false;
+          messageErr;
+        }
+
+        if ((0, _jquery2.default)('.js-signup-date').val() == '') {
+          err = false;
+          messageErr;
+        }
+
+        if (err == false) {
+          alert(messageErr);
+          return false;
+        } else {
+          _this2.submitForm(e.target);
+          alert(messageSuccess);
+          (0, _jquery2.default)('.copaair-signup')[0].reset();
+        }
       });
 
       (0, _jquery2.default)('.js-country-selector').selectmenu({
