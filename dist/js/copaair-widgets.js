@@ -1722,7 +1722,7 @@ var Signup = function () {
       $form.on('submit', function (e) {
         e.preventDefault();
         var err = true;
-        var messageErr = '';
+        var messageErr = 'This field is required';
         var messageSuccess = '';
 
         if ((0, _jquery2.default)('.copaair-form-name').val() == '') {
@@ -1813,7 +1813,7 @@ var Signup = function () {
         type: 'POST',
         url: 'https://flightcontrol.io/api/signup/add'
       }).done(function () {
-        container.fadeOut();
+        // container.fadeOut();
         if (typeof ga !== 'undefined') {
           ga('send', 'event', 'Subscription Form', 'subscribed', 'User was subscribed');
         }
