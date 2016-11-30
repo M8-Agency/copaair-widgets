@@ -1723,7 +1723,7 @@ var Signup = function () {
         e.preventDefault();
         var err = true;
         var messageErr = 'This field is required';
-        var messageSuccess = '';
+        var messageSuccess = 'Successfully sent';
 
         if ((0, _jquery2.default)('.copaair-form-name').val() == '') {
           err = false;
