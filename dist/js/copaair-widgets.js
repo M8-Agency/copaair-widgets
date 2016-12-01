@@ -1813,12 +1813,14 @@ var Signup = function () {
         url: 'https://flightcontrol.io/api/signup/add'
       }).done(function () {
         container.fadeOut();
+        alert(data.language)
+        console.log(container)
         if (data.language == 'EN') {
-          (0, _jquery2.default)('.copaair-signup-feedback').text('EN');  
+          (0, _jquery2.default)('.copaair-signup').text('EN');  
         } else if (this.options.lang == 'PT') {
-          (0, _jquery2.default)('.copaair-signup-feedback').text('PT');  
+          (0, _jquery2.default)('.copaair-signup').text('PT');  
         } else {
-          (0, _jquery2.default)('.copaair-signup-feedback').text('ES');   
+          (0, _jquery2.default)('.copaair-signup').text('ES');   
         }
         if (typeof ga !== 'undefined') {
           ga('send', 'event', 'Subscription Form', 'subscribed', 'User was subscribed');
