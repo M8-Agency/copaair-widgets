@@ -1722,7 +1722,7 @@ var Signup = function () {
       $form.on('submit', function (e) {
         e.preventDefault();
         var err = true;
-        var messageErr = 'The fields marked with (*) are requiered.';
+        var messageErr = 'This field is required';
 
         if ((0, _jquery2.default)('.copaair-form-name').val() == '') {
           err = false;
