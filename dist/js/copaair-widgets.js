@@ -1814,11 +1814,11 @@ var Signup = function () {
       }).done(function () {
         container.fadeOut();
         if (data.language == 'EN') {
-          (0, _jquery2.default)('.copaair-signup').text('EN').fadeIn(400);  
+          (0, _jquery2.default)('.copaair-signup').text('EN');
         } else if (data.language == 'PT') {
-          (0, _jquery2.default)('.copaair-signup').text('PT').fadeIn(400);  
+          (0, _jquery2.default)('.copaair-signup').text('PT');
         } else if (data.language == 'ES') {
-          (0, _jquery2.default)('.copaair-signup').text('ES').fadeIn(400);   
+          (0, _jquery2.default)('.copaair-signup').text('ES'); 
         }
         if (typeof ga !== 'undefined') {
           ga('send', 'event', 'Subscription Form', 'subscribed', 'User was subscribed');
