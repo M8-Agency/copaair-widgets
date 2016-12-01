@@ -1813,6 +1813,7 @@ var Signup = function () {
         url: 'https://flightcontrol.io/api/signup/add'
       }).done(function () {
         // container.fadeOut();
+        (0, _jquery2.default)('.copaair-widget-hidden').fadeOut();
         if (data.language == 'EN') {
           (0, _jquery2.default)('.copaair-signup-message').text('EN');
         } else if (data.language == 'PT') {
