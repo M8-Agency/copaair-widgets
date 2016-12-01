@@ -1760,13 +1760,6 @@ var Signup = function () {
           return false;
         } else {
           _this2.submitForm(e.target);
-          if (this.options.lang == 'en') {
-            (0, _jquery2.default)('.copaair-signup-feedback').text('EN');  
-          } else if (this.options.lang == 'pt') {
-            (0, _jquery2.default)('.copaair-signup-feedback').text('PT');  
-          } else {
-            (0, _jquery2.default)('.copaair-signup-feedback').text('ES');   
-          }
           (0, _jquery2.default)('.copaair-signup')[0].reset();
         }
       });
@@ -1820,6 +1813,13 @@ var Signup = function () {
         url: 'https://flightcontrol.io/api/signup/add'
       }).done(function () {
         container.fadeOut();
+        if (data.language == 'EN') {
+          (0, _jquery2.default)('.copaair-signup-feedback').text('EN');  
+        } else if (this.options.lang == 'PT') {
+          (0, _jquery2.default)('.copaair-signup-feedback').text('PT');  
+        } else {
+          (0, _jquery2.default)('.copaair-signup-feedback').text('ES');   
+        }
         if (typeof ga !== 'undefined') {
           ga('send', 'event', 'Subscription Form', 'subscribed', 'User was subscribed');
         }
