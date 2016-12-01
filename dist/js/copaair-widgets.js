@@ -1722,8 +1722,7 @@ var Signup = function () {
       $form.on('submit', function (e) {
         e.preventDefault();
         var err = true;
-        var messageErr = 'This field is required';
-        var messageSuccess = 'Successfully sent';
+        var messageErr = 'The fields marked with (*) are requiered.';
 
         if ((0, _jquery2.default)('.copaair-form-name').val() == '') {
           err = false;
@@ -1816,11 +1815,11 @@ var Signup = function () {
         (0, _jquery2.default)('.copaair-widget-hidden').fadeOut();
         (0, _jquery2.default)('.copaair-signup-message').delay(400).fadeIn();
         if (data.language == 'EN') {
-          (0, _jquery2.default)('.copaair-signup-message').text('EN');
+          (0, _jquery2.default)('.copaair-signup-message').text('You have successfully subscribed to our mailing list');
         } else if (data.language == 'PT') {
-          (0, _jquery2.default)('.copaair-signup-message').text('PT');
+          (0, _jquery2.default)('.copaair-signup-message').text('Você foi inscrito com sucesso em nossa lista de endereços');
         } else if (data.language == 'ES') {
-          (0, _jquery2.default)('.copaair-signup-message').text('ES'); 
+          (0, _jquery2.default)('.copaair-signup-message').text('Ya estás registrado correctamente en nuestra lista de correo'); 
         }
         if (typeof ga !== 'undefined') {
           ga('send', 'event', 'Subscription Form', 'subscribed', 'User was subscribed');
