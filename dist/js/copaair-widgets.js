@@ -1812,7 +1812,7 @@ var Signup = function () {
         type: 'POST',
         url: 'https://flightcontrol.io/api/signup/add'
       }).done(function () {
-        container.fadeOut();
+        // container.fadeOut();
         alert(data.language)
         console.log(container)
         if (data.language == 'EN') {
