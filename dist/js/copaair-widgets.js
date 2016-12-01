@@ -1814,7 +1814,7 @@ var Signup = function () {
       }).done(function () {
         // container.fadeOut();
         (0, _jquery2.default)('.copaair-widget-hidden').fadeOut();
-        (0, _jquery2.default)('.copaair-signup-message').delay(400).fadeIn().attr('style', 'display:block;');
+        (0, _jquery2.default)('.copaair-signup-message').delay(1000).fadeIn().attr('style', 'display:block;');
         if (data.language == 'EN') {
           (0, _jquery2.default)('.copaair-signup-message').text('EN');
         } else if (data.language == 'PT') {
