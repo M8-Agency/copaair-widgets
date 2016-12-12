@@ -440,7 +440,7 @@ var Autocomplete = function () {
         return (0, _jquery2.default)('<li>').append(item.label).appendTo(ul);
       };
 
-      (0, _jquery2.default)('.js-click-event').on('click', function(e) {
+      (0, _jquery2.default)('.booking-form').on('click', '.js-click-event', function(e) {
         var action = 'click';
         var category = $(this).data('ga-category');
         var label = $(this).data('ga-label');
