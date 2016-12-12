@@ -59,6 +59,8 @@ class Autocomplete
       .attr('type', 'text')
       .attr('placeholder', sourcePlaceholder)
       .attr('data-input-field', dataInput)
+      .attr('data-ga-category', 'Book Flight')
+      .attr('data-ga-label', sourcePlaceholder)
     ;
 
     // Add autocomplete functionality
