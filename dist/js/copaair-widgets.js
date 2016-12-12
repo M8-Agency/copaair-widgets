@@ -1719,6 +1719,13 @@ var Signup = function () {
         $toggle.removeClass('copaair-hidden');
       });
 
+      (0, _jquery2.default).on('click', function(e) {
+        var action = 'click',
+        var category = $(this).data('ga-category');
+        var label = $(this).data('ga-label');
+        ga('send', 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
+      });
+
       $form.on('submit', function (e) {
         e.preventDefault();
         var err = true;
