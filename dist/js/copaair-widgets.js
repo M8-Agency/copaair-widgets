@@ -417,7 +417,7 @@ var Autocomplete = function () {
       var sourcePlaceholder = $this.attr('placeholder');
       var dataInput = $this.data('input-field');
 
-      var $input = (0, _jquery2.default)('<input />').val(sourceValue).attr('type', 'text').attr('placeholder', sourcePlaceholder).attr('data-input-field', dataInput);
+      var $input = (0, _jquery2.default)('<input />').val(sourceValue).attr('type', 'text').attr('placeholder', sourcePlaceholder).attr('data-input-field', dataInput).attr('data-ga-category', 'Book Flight').attr('data-ga-label', sourcePlaceholder);
 
       // Add autocomplete functionality
       $input.autocomplete(this.options);
