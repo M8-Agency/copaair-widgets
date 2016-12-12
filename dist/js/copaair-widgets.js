@@ -1720,7 +1720,7 @@ var Signup = function () {
       });
 
       (0, _jquery2.default)('.js-click-event').on('click', function(e) {
-        var action = 'click',
+        var action = 'click';
         var category = $(this).data('ga-category');
         var label = $(this).data('ga-label');
         ga('send', 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
