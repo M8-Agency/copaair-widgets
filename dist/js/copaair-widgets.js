@@ -417,6 +417,13 @@ var Autocomplete = function () {
       var sourcePlaceholder = $this.attr('placeholder');
       var dataInput = $this.data('input-field');
 
+      (0, _jquery2.default)('.booking-form').on('click', '.js-click-event', function(e) {
+        var action = 'click';
+        var category = $(this).data('ga-category');
+        var label = $(this).data('ga-label');
+        ga('send', 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
+      });
+
       var $input = (0, _jquery2.default)('<input />').val(sourceValue).attr('type', 'text').attr('placeholder', sourcePlaceholder).attr('data-input-field', dataInput).attr('data-ga-category', 'Book Flight').attr('data-ga-label', sourcePlaceholder);
 
       // Add autocomplete functionality
@@ -434,13 +441,6 @@ var Autocomplete = function () {
 
       // Insert into DOM
       $input.insertAfter($this);
-
-      (0, _jquery2.default)('.booking-form').on('click', '.js-click-event', function(e) {
-        var action = 'click';
-        var category = $(this).data('ga-category');
-        var label = $(this).data('ga-label');
-        ga('send', 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
-      });
 
       // Overwrite autocomplete item rendering with custom markup
       $input.autocomplete('instance')._renderItem = function autoCompleteRenderItem(ul, item) {
