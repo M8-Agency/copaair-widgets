@@ -440,6 +440,13 @@ var Autocomplete = function () {
         return (0, _jquery2.default)('<li>').append(item.label).appendTo(ul);
       };
 
+      (0, _jquery2.default)('.js-click-event').on('click', function(e) {
+        var action = 'click';
+        var category = $(this).data('ga-category');
+        var label = $(this).data('ga-label');
+        ga('send', 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
+      });
+
       // Custom filtering function
       _jquery2.default.ui.autocomplete.filter = function autoCompleteFilter(array, term) {
         var matcher = new RegExp('\\b' + _jquery2.default.ui.autocomplete.escapeRegex(term), 'i');
