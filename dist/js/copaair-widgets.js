@@ -417,7 +417,7 @@ var Autocomplete = function () {
       var sourcePlaceholder = $this.attr('placeholder');
       var dataInput = $this.data('input-field');
 
-      (0, _jquery2.default)('.booking-form').on('click', '.js-click-event', function(e) {
+      (0, _jquery2.default)('.booking-form').on('click', '.js-book-event', function(e) {
         var action = 'click';
         var category = $(this).data('ga-category');
         var label = $(this).data('ga-label');
