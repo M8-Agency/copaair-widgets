@@ -1,23 +1,29 @@
 <form class="copaair-signup  copaair-widget  copaair-theme-default">
     <div class="copaair-widget-layout copaair-widget-hidden" style="margin-bottom: 12px;">
         <div class="copaair-widget-layout__item">
-            <input class="copaair-form-control copaair-form-name"
+            <input class="copaair-form-control copaair-form-name js-click-event"
                    type="text"
                    placeholder="*{{ form.fname }}"
                    name="first_name"
+                   data-ga-category="first_name subscribe"
+                   data-ga-label="{{ form.fname }}"
                    required>
         </div
         ><div class="copaair-widget-layout__item">
-            <input class="copaair-form-control copaair-form-lastname"
+            <input class="copaair-form-control copaair-form-lastname js-click-event"
                    type="text"
                    placeholder="*{{ form.lname }}"
                    name="last_name"
+                   data-ga-category="last_name subscribe"
+                   data-ga-label="{{ form.lname }}"
                    required>
         </div
         ><div class="copaair-widget-layout__item">
-            <input class="copaair-form-control copaair-form-email"
+            <input class="copaair-form-control copaair-form-email js-click-event"
                    type="email"
                    placeholder="*{{ form.email }}"
+                   data-ga-category="email subscribe"
+                   data-ga-label="{{ form.email }}"
                    name="email"
                    required>
         </div
@@ -30,25 +36,29 @@
 
     <div class="copaair-widget-layout copaair-widget-hidden copaair-hidden js-copaair-toggle" style="margin-bottom: 12px;">
         <div class="copaair-widget-layout__item">
-             <select class="copaair-signup-select  copaair-form-control  js-selectmenu js-country-selector"
+             <select class="copaair-signup-select  copaair-form-control  js-selectmenu js-country-selector js-click-event"
                     id="signup-country-select"
                     name="country"
+                    data-ga-category="country subscribe"
+                    data-ga-label="{{ form.country }}"
                     data-content="countries" required
                     >
                     <option>{{ form.country }}</option>
             </select>
         </div
         ><div class="copaair-widget-layout__item">
-             <select class="copaair-signup-select  copaair-form-control  js-selectmenu js-city-selector"
+             <select class="copaair-signup-select  copaair-form-control  js-selectmenu js-city-selector js-click-event"
                     id="signup-city-select"
                     name="city"
+                    data-ga-category="city subscribe"
+                    data-ga-label="{{ form.city }}"
                     data-content="destinations" required
                     >
                     <option>{{ form.city }}</option>
             </select>
         </div
         ><div class="copaair-widget-layout__item">
-            <input class="copaair-form-control  copaair-widget-datepicker  copaair-signup-datepicker-bday js-signup-date" placeholder="*{{ form.birthday }}" type="text" required name="dob">
+            <input class="copaair-form-control  copaair-widget-datepicker js-click-event  copaair-signup-datepicker-bday js-signup-date" placeholder="*{{ form.birthday }}" type="text" required name="dob" data-ga-category="dob subscribe" data-ga-label="{{ form.birthday }}">
         </div
         ><div class="copaair-widget-layout__item">
         </div>

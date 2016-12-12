@@ -1821,9 +1821,7 @@ var Signup = function () {
         } else if (data.language == 'ES') {
           (0, _jquery2.default)('.copaair-signup-message').text('Ya estás registrado correctamente en nuestra lista de correo'); 
         }
-        if (typeof ga !== 'undefined') {
-          ga('send', 'event', 'Subscription Form', 'subscribed', 'User was subscribed');
-        }
+        ga('send', 'Newsletter', 'Subscription Form', 'subscribed', 'User was subscribed');
       });
     }
   }]);
