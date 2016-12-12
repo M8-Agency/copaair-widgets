@@ -435,17 +435,17 @@ var Autocomplete = function () {
       // Insert into DOM
       $input.insertAfter($this);
 
-      // Overwrite autocomplete item rendering with custom markup
-      $input.autocomplete('instance')._renderItem = function autoCompleteRenderItem(ul, item) {
-        return (0, _jquery2.default)('<li>').append(item.label).appendTo(ul);
-      };
-
       (0, _jquery2.default)('.booking-form').on('click', '.js-click-event', function(e) {
         var action = 'click';
         var category = $(this).data('ga-category');
         var label = $(this).data('ga-label');
         ga('send', 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
       });
+
+      // Overwrite autocomplete item rendering with custom markup
+      $input.autocomplete('instance')._renderItem = function autoCompleteRenderItem(ul, item) {
+        return (0, _jquery2.default)('<li>').append(item.label).appendTo(ul);
+      };
 
       // Custom filtering function
       _jquery2.default.ui.autocomplete.filter = function autoCompleteFilter(array, term) {
