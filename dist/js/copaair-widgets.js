@@ -1118,7 +1118,7 @@ var defaults = {
   lang: 'es',
   origin: 'all',
   destination: 'all',
-  d1: null,
+  d1: 'nbx_atpwebsite_be',
   bookingPage: 'Booking Engine',
   analytics: false,
   inputs: {
