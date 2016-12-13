@@ -1106,12 +1106,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _urlUtm(name) {
   var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-  if (results==null){
-     return null;
+  if (results) {
+    return 'null';
+  } else {
+    return results[1] || 0;  
   }
-  else{
-     return results[1] || 0;
-  }
+  
 } 
 
 
