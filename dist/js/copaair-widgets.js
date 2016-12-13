@@ -1219,7 +1219,7 @@ var FormHelper = function () {
       }
 
       var httpQuery = _jquery2.default.param(this.options.inputs);
-      httpQuery += '&' + _jquery2.default.param({ d1: this.options.d1 });
+      httpQuery += '&' + _jquery2.default.param({ d1: 'nbx_atpwebsite_be' });
 
       if (validation.error) {
         // handle validation error messages
@@ -1479,7 +1479,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  */
 var defaults = {
   lang: 'es',
-  d1: 'nbx_atpwebsite_be',
+  d1: null,
   bookingPage: null,
   coupon: null,
   origin: null,
