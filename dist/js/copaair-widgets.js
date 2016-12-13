@@ -1104,9 +1104,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _urlUtm(name){
+function _urlUtm(name) {
   var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-  return results[1] || 0;
+  if (results==null){
+     return null;
+  }
+  else{
+     return results[1] || 0;
+  }
 } 
 
 
