@@ -1136,11 +1136,6 @@ var defaults = {
     'inboundOption.departureDay': null,
     'inboundOption.departureMonth': null,
     'inboundOption.departureYear': null,
-    'utm_source': _urlUtm('utm_source'),
-    'utm_campaign': _urlUtm('utm_campaign'),
-    'utm_medium': _urlUtm('utm_medium'),
-    'utm_term': _urlUtm('utm_term'),
-    'utm_content': _urlUtm('utm_content'),
     // Origin
     'outboundOption.originLocationCode': null,
     'inboundOption.destinationLocationCode': null,
