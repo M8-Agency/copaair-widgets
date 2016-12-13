@@ -1109,7 +1109,6 @@ function _urlUtm(name) {
   if (results != null) {
     return results[1] || 0;  
   }
-  
 } 
 
 
@@ -1137,11 +1136,11 @@ var defaults = {
     'inboundOption.departureDay': null,
     'inboundOption.departureMonth': null,
     'inboundOption.departureYear': null,
-    'utm_source': _urlUtm('utm_source') || null,
-    'utm_campaign': _urlUtm('utm_campaign') || null,
-    'utm_medium': _urlUtm('utm_medium') || null,
-    'utm_term': _urlUtm('utm_term') || null,
-    'utm_content': _urlUtm('utm_content') || null,
+    'utm_source': _urlUtm('utm_source'),
+    'utm_campaign': _urlUtm('utm_campaign'),
+    'utm_medium': _urlUtm('utm_medium'),
+    'utm_term': _urlUtm('utm_term'),
+    'utm_content': _urlUtm('utm_content'),
     // Origin
     'outboundOption.originLocationCode': null,
     'inboundOption.destinationLocationCode': null,
