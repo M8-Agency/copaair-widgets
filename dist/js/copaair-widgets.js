@@ -1106,7 +1106,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _urlUtm(name) {
   var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-  if (results != null) {
+  if (results == null) {
+    return 0;
+  } else {
     return results[1] || 0;  
   }
 } 
@@ -1136,6 +1138,11 @@ var defaults = {
     'inboundOption.departureDay': null,
     'inboundOption.departureMonth': null,
     'inboundOption.departureYear': null,
+    'utm_source': _urlUtm('utm_source'),
+    'utm_campaign': _urlUtm('utm_campaign'),
+    'utm_medium': _urlUtm('utm_medium'),
+    'utm_term': _urlUtm('utm_term'),
+    'utm_content': _urlUtm('utm_content'),
     // Origin
     'outboundOption.originLocationCode': null,
     'inboundOption.destinationLocationCode': null,
