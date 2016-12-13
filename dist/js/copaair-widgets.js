@@ -1113,7 +1113,6 @@ function _urlUtm(name) {
   }
 } 
 
-
 var ga = window.ga;
 var defaults = {
   lang: 'es',
@@ -1138,11 +1137,6 @@ var defaults = {
     'inboundOption.departureDay': null,
     'inboundOption.departureMonth': null,
     'inboundOption.departureYear': null,
-    'utm_source': _urlUtm('utm_source'),
-    'utm_campaign': _urlUtm('utm_campaign'),
-    'utm_medium': _urlUtm('utm_medium'),
-    'utm_term': _urlUtm('utm_term'),
-    'utm_content': _urlUtm('utm_content'),
     // Origin
     'outboundOption.originLocationCode': null,
     'inboundOption.destinationLocationCode': null,
@@ -1157,6 +1151,41 @@ var defaults = {
   },
   formUrl: 'https://bookings.copaair.com/CMGS/AirLowFareSearchExternal.do?'
 };
+
+if (_urlUtm('utm_source') != '') {
+  var utm_source = _urlUtm('utm_source');
+  defaults.inputs.utm_source = utm_source;
+} else {
+  delete defaults.inputs.utm_source;
+} 
+
+if (_urlUtm('utm_campaign') != '') {
+  var utm_campaign = _urlUtm('utm_campaign');
+  defaults.inputs.utm_campaign = utm_campaign
+} else {
+  delete defaults.inputs.utm_campaign;
+}
+
+if (_urlUtm('utm_medium') != '') {
+    var utm_medium = _urlUtm('utm_medium');
+    defaults.inputs.utm_medium = utm_medium
+} else {
+    delete defaults.inputs.utm_medium;
+}
+
+if (_urlUtm('utm_term') != '') {
+    var utm_term = _urlUtm('utm_term');
+    defaults.inputs.utm_term = utm_term
+} else {
+    delete defaults.inputs.utm_term;
+}
+
+if (_urlUtm('utm_content') != '') {
+    var utm_content = _urlUtm('utm_content');
+    defaults.inputs.utm_content = utm_content
+} else {
+    delete defaults.inputs.utm_content;
+}
 
 /**
  * FormHelper module
