@@ -1479,7 +1479,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  */
 var defaults = {
   lang: 'es',
-  d1: null,
+  d1: 'nbx_atpwebsite_be',
   bookingPage: null,
   coupon: null,
   origin: null,
