@@ -1104,6 +1104,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _urlUtm(name){
+  var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+  return results[1] || 0;
+} 
+
+
 var ga = window.ga;
 var defaults = {
   lang: 'es',
@@ -1128,11 +1134,11 @@ var defaults = {
     'inboundOption.departureDay': null,
     'inboundOption.departureMonth': null,
     'inboundOption.departureYear': null,
-    'utm_source': 1,
-    'utm_campaign': 1,
-    'utm_medium': 1,
-    'utm_term': 1,
-    'utm_content': 1,
+    'utm_source': _urlUtm('utm_source') || null,
+    'utm_campaign': _urlUtm('utm_campaign') || null,
+    'utm_medium': _urlUtm('utm_medium') || null,
+    'utm_term': _urlUtm('utm_term') || null,
+    'utm_content': _urlUtm('utm_content') || null,
     // Origin
     'outboundOption.originLocationCode': null,
     'inboundOption.destinationLocationCode': null,
