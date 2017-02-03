@@ -79,9 +79,56 @@ class Signup {
       $toggle.removeClass('copaair-hidden');
     });
 
+    $('.js-click-event').on('click', function(e) {
+      let action = 'click';
+      let category = $(this).data('ga-category');
+      let label = $(this).data('ga-label');
+      ga('send', 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
+    });
+
     $form.on('submit', (e) => {
       e.preventDefault();
-      this.submitForm(e.target);
+
+      let err = false;
+      let messageErr = 'Fields marked with (*) are required';
+
+      if ($('.copaair-form-name').val() == '') {
+        err = true;
+        messageErr;
+      }
+
+      if ($('.copaair-form-lastname').val() == '') {
+        err = true;
+        messageErr;
+      }
+
+      if ($('copaair-form-email').val() == '') {
+        err = true;
+        messageErr;
+      }
+
+      if ($('.js-country-selector').val() == '') {
+        err = true;
+        messageErr;
+      }
+
+      if ($('.js-city-selector').val() == '') {
+        err = true;
+        messageErr;
+      }
+
+      if ($('.js-signup-date').val() == '') {
+        err = true;
+        messageErr;
+      }
+
+      if (err) {
+        alert(messageErr);
+        return false;
+      } else {
+        this.submitForm(e.target);
+        $('.copaair-signup')[0].reset();
+      }
     });
 
     $('.js-country-selector').selectmenu({
@@ -97,13 +144,13 @@ class Signup {
           }
         }
 
-        $('.js-city-selector').selectmenu('refresh');
-
-        return new DataMenu({
+        new DataMenu({
           lang: this.options.lang,
           data: selected,
           selector: $('.js-city-selector'),
         });
+        
+        $('.js-city-selector').selectmenu('refresh');
       },
     });
 
@@ -131,10 +178,18 @@ class Signup {
       type: 'POST',
       url: 'https://flightcontrol.io/api/signup/add',
     }).done(() => {
-      container.fadeOut();
-      if (typeof(ga) !== 'undefined') {
-        ga('send', 'event', 'Subscription Form', 'subscribed', 'User was subscribed');
+      $('.copaair-widget-hidden').fadeOut();
+      $('.copaair-signup-message').delay(400).fadeIn();
+
+      let lang = {
+        EN: 'You have successfully subscribed to our mailing list',
+        PT: 'Você foi inscrito com sucesso em nossa lista de endereços',
+        ES: 'Ya estás registrado correctamente en nuestra lista de correo'
       }
+
+      $('.copaair-signup-message').text(lang[data.language] || lang.EN);
+
+      ga('send', 'event', { eventCategory: 'Subscription Form', eventAction: 'success', eventLabel: 'User was subscribed', transport: 'beacon' });
     });
   }
 }

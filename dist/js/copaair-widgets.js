@@ -417,11 +417,17 @@ var Autocomplete = function () {
       var sourcePlaceholder = $this.attr('placeholder');
       var dataInput = $this.data('input-field');
 
-      (0, _jquery2.default)('.booking-form').on('click', '.js-book-event', function(e) {
+      (0, _jquery2.default)('.booking-form').on('click', '.js-book-event', function (e) {
         var action = 'click';
-        var category = $(this).data('ga-category');
-        var label = $(this).data('ga-label');
-        ga('send', 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
+        var category = (0, _jquery2.default)(this).data('ga-category');
+        var label = (0, _jquery2.default)(this).data('ga-label');
+
+        ga('send', 'event', {
+          eventCategory: category,
+          eventAction: action,
+          eventLabel: label,
+          transport: 'beacon'
+        });
       });
 
       var $input = (0, _jquery2.default)('<input />').val(sourceValue).attr('type', 'text').attr('placeholder', sourcePlaceholder).attr('data-input-field', dataInput).attr('data-ga-category', 'Book Flight').attr('data-ga-label', sourcePlaceholder);
@@ -1104,15 +1110,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _urlUtm(name) {
-  var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-  if (results == null) {
-    return 0;
-  } else {
-    return results[1] || 0;  
-  }
-} 
-
 var ga = window.ga;
 var defaults = {
   lang: 'es',
@@ -1137,6 +1134,7 @@ var defaults = {
     'inboundOption.departureDay': null,
     'inboundOption.departureMonth': null,
     'inboundOption.departureYear': null,
+
     // Origin
     'outboundOption.originLocationCode': null,
     'inboundOption.destinationLocationCode': null,
@@ -1152,40 +1150,39 @@ var defaults = {
   formUrl: 'https://bookings.copaair.com/CMGS/AirLowFareSearchExternal.do?'
 };
 
-if (_urlUtm('utm_source') != '') {
-  var utm_source = _urlUtm('utm_source');
-  defaults.inputs.utm_source = utm_source;
-} else {
-  delete defaults.inputs.utm_source;
-} 
+var _urlUtm = function _urlUtm(name) {
+  var results = void 0,
+      rgx = void 0;
 
-if (_urlUtm('utm_campaign') != '') {
-  var utm_campaign = _urlUtm('utm_campaign');
-  defaults.inputs.utm_campaign = utm_campaign
-} else {
-  delete defaults.inputs.utm_campaign;
-}
+  rgx = new RegExp('[\?&]' + name + '=([^&#]*)');
+  results = rgx.exec(window.location.href);
 
-if (_urlUtm('utm_medium') != '') {
-    var utm_medium = _urlUtm('utm_medium');
-    defaults.inputs.utm_medium = utm_medium
-} else {
-    delete defaults.inputs.utm_medium;
-}
+  if (results == null) {
+    return 0;
+  } else {
+    return results[1] || 0;
+  }
+};
 
-if (_urlUtm('utm_term') != '') {
-    var utm_term = _urlUtm('utm_term');
-    defaults.inputs.utm_term = utm_term
-} else {
-    delete defaults.inputs.utm_term;
-}
+var _applyUtm = function _applyUtm(keys) {
+  var x = void 0,
+      key = void 0,
+      val = void 0,
+      len = keys.length;
 
-if (_urlUtm('utm_content') != '') {
-    var utm_content = _urlUtm('utm_content');
-    defaults.inputs.utm_content = utm_content
-} else {
-    delete defaults.inputs.utm_content;
-}
+  for (x = 0; x < len; x += 1) {
+    key = keys[x];
+    val = _urlUtm(key);
+
+    if (val !== '') {
+      defaults.inputs[key] = val;
+    } else {
+      delete defaults.inputs[key];
+    }
+  }
+};
+
+_applyUtm(['utm_source', 'utm_campaign', 'utm_medium', 'utm_term', 'utm_content']);
 
 /**
  * FormHelper module
@@ -1219,7 +1216,7 @@ var FormHelper = function () {
       }
 
       var httpQuery = _jquery2.default.param(this.options.inputs);
-      httpQuery += '&' + _jquery2.default.param({ d1: 'nbx_atpwebsite_be' });
+      httpQuery += '&' + _jquery2.default.param({ d1: this._defaults.d1 });
 
       if (validation.error) {
         // handle validation error messages
@@ -1769,49 +1766,50 @@ var Signup = function () {
         $toggle.removeClass('copaair-hidden');
       });
 
-      (0, _jquery2.default)('.js-click-event').on('click', function(e) {
+      (0, _jquery2.default)('.js-click-event').on('click', function (e) {
         var action = 'click';
-        var category = $(this).data('ga-category');
-        var label = $(this).data('ga-label');
+        var category = (0, _jquery2.default)(this).data('ga-category');
+        var label = (0, _jquery2.default)(this).data('ga-label');
         ga('send', 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
       });
 
       $form.on('submit', function (e) {
         e.preventDefault();
-        var err = true;
+
+        var err = false;
         var messageErr = 'Fields marked with (*) are required';
 
         if ((0, _jquery2.default)('.copaair-form-name').val() == '') {
-          err = false;
+          err = true;
           messageErr;
         }
 
         if ((0, _jquery2.default)('.copaair-form-lastname').val() == '') {
-          err = false;
+          err = true;
           messageErr;
         }
 
         if ((0, _jquery2.default)('copaair-form-email').val() == '') {
-          err = false;
+          err = true;
           messageErr;
         }
 
         if ((0, _jquery2.default)('.js-country-selector').val() == '') {
-          err = false;
+          err = true;
           messageErr;
         }
 
         if ((0, _jquery2.default)('.js-city-selector').val() == '') {
-          err = false;
+          err = true;
           messageErr;
         }
 
         if ((0, _jquery2.default)('.js-signup-date').val() == '') {
-          err = false;
+          err = true;
           messageErr;
         }
 
-        if (err == false) {
+        if (err) {
           alert(messageErr);
           return false;
         } else {
@@ -1833,13 +1831,13 @@ var Signup = function () {
             }
           }
 
-          (0, _jquery2.default)('.js-city-selector').selectmenu('refresh');
-
-          return new _DataMenu2.default({
+          new _DataMenu2.default({
             lang: this.options.lang,
             data: selected,
             selector: (0, _jquery2.default)('.js-city-selector')
           });
+
+          (0, _jquery2.default)('.js-city-selector').selectmenu('refresh');
         }
       });
 
@@ -1858,8 +1856,8 @@ var Signup = function () {
       data.fullname = data.first_name + ' ' + data.last_name;
       data.source = this.options.source;
       data.language = this.options.lang.toUpperCase();
-      data.city = (0, _jquery2.default)('.js-city-selector').val();
-      data.country = (0, _jquery2.default)('.js-country-selector').val();
+      data.city = this.options.city;
+      data.country = this.options.country;
 
       var container = this.options.container;
 
@@ -1868,16 +1866,17 @@ var Signup = function () {
         type: 'POST',
         url: 'https://flightcontrol.io/api/signup/add'
       }).done(function () {
-        // container.fadeOut();
         (0, _jquery2.default)('.copaair-widget-hidden').fadeOut();
         (0, _jquery2.default)('.copaair-signup-message').delay(400).fadeIn();
-        if (data.language == 'EN') {
-          (0, _jquery2.default)('.copaair-signup-message').text('You have successfully subscribed to our mailing list');
-        } else if (data.language == 'PT') {
-          (0, _jquery2.default)('.copaair-signup-message').text('Você foi inscrito com sucesso em nossa lista de endereços');
-        } else if (data.language == 'ES') {
-          (0, _jquery2.default)('.copaair-signup-message').text('Ya estás registrado correctamente en nuestra lista de correo'); 
-        }
+
+        var lang = {
+          EN: 'You have successfully subscribed to our mailing list',
+          PT: 'Você foi inscrito com sucesso em nossa lista de endereços',
+          ES: 'Ya estás registrado correctamente en nuestra lista de correo'
+        };
+
+        (0, _jquery2.default)('.copaair-signup-message').text(lang[data.language] || lang.EN);
+
         ga('send', 'event', { eventCategory: 'Subscription Form', eventAction: 'success', eventLabel: 'User was subscribed', transport: 'beacon' });
       });
     }

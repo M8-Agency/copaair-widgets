@@ -5,7 +5,7 @@ const defaults = {
   lang: 'es',
   origin: 'all',
   destination: 'all',
-  d1: null,
+  d1: 'nbx_atpwebsite_be',
   bookingPage: 'Booking Engine',
   analytics: false,
   inputs: {
@@ -40,6 +40,36 @@ const defaults = {
   formUrl: 'https://bookings.copaair.com/CMGS/AirLowFareSearchExternal.do?',
 };
 
+const _urlUtm = (name) => {
+  let results, rgx;
+
+  rgx = new RegExp('[\?&]' + name + '=([^&#]*)');
+  results = rgx.exec(window.location.href);
+
+  if (results == null) {
+    return 0;
+  } else {
+    return results[1] || 0;
+  }
+}
+
+const _applyUtm = (keys) => {
+    let x, key, val, len = keys.length;
+
+    for (x = 0; x < len; x += 1) {
+        key = keys[x];
+        val = _urlUtm(key);
+
+        if (val !== '') {
+            defaults.inputs[key] = val;
+        } else {
+            delete defaults.inputs[key];
+        }
+    }
+}
+
+_applyUtm(['utm_source', 'utm_campaign', 'utm_medium', 'utm_term', 'utm_content']);
+
 /**
  * FormHelper module
  */
@@ -68,7 +98,7 @@ class FormHelper {
     }
 
     let httpQuery = $.param(this.options.inputs);
-    httpQuery += `&${$.param({ d1: this.options.d1 })}`;
+    httpQuery += `&${$.param({ d1: this._defaults.d1 })}`;
 
     if (validation.error) {
       // handle validation error messages

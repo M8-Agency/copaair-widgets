@@ -54,6 +54,19 @@ class Autocomplete
     const sourcePlaceholder = $this.attr('placeholder');
     const dataInput = $this.data('input-field');
 
+    $('.booking-form').on('click', '.js-book-event', function(e) {
+      let action = 'click';
+      let category = $(this).data('ga-category');
+      let label = $(this).data('ga-label');
+
+      ga('send', 'event', {
+        eventCategory: category,
+        eventAction: action,
+        eventLabel: label,
+        transport: 'beacon'
+      });
+    });
+
     const $input = $('<input />')
       .val(sourceValue)
       .attr('type', 'text')
