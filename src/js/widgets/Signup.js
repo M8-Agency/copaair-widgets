@@ -176,7 +176,7 @@ class Signup {
     $.ajax({
       data,
       type: 'POST',
-      url: 'https://flightcontrol.io/api/signup/add',
+      url: 'https://flightcontrol.co/api/signup/add',
     }).done(() => {
       $('.copaair-widget-hidden').fadeOut();
       $('.copaair-signup-message').delay(400).fadeIn();

@@ -962,9 +962,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var defaults = {
   lang: 'es',
   api: {
-    destinations: 'https://flightcontrol.io/api/routes/destinations',
-    countries: 'https://flightcontrol.io/api/routes/countries',
-    regions: 'https://flightcontrol.io/api/routes/regions'
+    destinations: 'https://flightcontrol.co/api/routes/destinations',
+    countries: 'https://flightcontrol.co/api/routes/countries',
+    regions: 'https://flightcontrol.co/api/routes/regions'
   },
   storageExpiration: 86400000,
   storage: true
@@ -1864,7 +1864,7 @@ var Signup = function () {
       _jquery2.default.ajax({
         data: data,
         type: 'POST',
-        url: 'https://flightcontrol.io/api/signup/add'
+        url: 'https://flightcontrol.co/api/signup/add'
       }).done(function () {
         (0, _jquery2.default)('.copaair-widget-hidden').fadeOut();
         (0, _jquery2.default)('.copaair-signup-message').delay(400).fadeIn();
