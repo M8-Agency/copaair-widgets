@@ -110,10 +110,18 @@ class FormHelper {
       // console.log(httpQuery);
       if (this.options.analytics && typeof(ga) !== 'undefined') {
         ga('send', 'event', this.options.bookingPage, 'click', 'Search flights');
-      }
 
-      const searchWindow = window.open(url + httpQuery, '_blank');
-      searchWindow.focus();
+        ga(function(tracker) {
+          let linkerParam = tracker.get('linkerParam');
+          let finalUrl = `${url}${linkerParam}&${httpQuery}`;
+          let searchWindow = window.open(finalUrl, '_blank');
+          searchWindow.focus();
+        });
+
+      } else {
+        const searchWindow = window.open(url + httpQuery, '_blank');
+        searchWindow.focus();
+      }
     }
   }
 
