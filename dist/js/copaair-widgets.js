@@ -1228,10 +1228,17 @@ var FormHelper = function () {
         // console.log(httpQuery);
         if (this.options.analytics && typeof ga !== 'undefined') {
           ga('send', 'event', this.options.bookingPage, 'click', 'Search flights');
-        }
 
-        var searchWindow = window.open(url + httpQuery, '_blank');
-        searchWindow.focus();
+          ga(function (tracker) {
+            var linkerParam = tracker.get('linkerParam');
+            var finalUrl = '' + url + linkerParam + '&' + httpQuery;
+            var searchWindow = window.open(finalUrl, '_blank');
+            searchWindow.focus();
+          });
+        } else {
+          var searchWindow = window.open(url + httpQuery, '_blank');
+          searchWindow.focus();
+        }
       }
     }
   }, {
