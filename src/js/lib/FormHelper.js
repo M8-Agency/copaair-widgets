@@ -60,7 +60,7 @@ const _applyUtm = (keys) => {
         key = keys[x];
         val = _urlUtm(key);
 
-        if (val !== '') {
+        if (val !== '' && val !== 0) {
             defaults.inputs[key] = val;
         } else {
             delete defaults.inputs[key];
