@@ -795,6 +795,8 @@ var Datepicker = function () {
           $returnField.click().focus();
         } else if ($departureField[0] !== _this.current && $departureField.val() === '') {
           $departureField.click().focus();
+        } else {
+          $mainDatePicker.hide();
         }
 
         if (date1) {
@@ -1863,10 +1865,6 @@ var Signup = function () {
       data.fullname = data.first_name + ' ' + data.last_name;
       data.source = this.options.source;
       data.language = this.options.lang.toUpperCase();
-      data.city = this.options.city;
-      data.country = this.options.country;
-
-      var container = this.options.container;
 
       _jquery2.default.ajax({
         data: data,
