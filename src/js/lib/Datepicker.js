@@ -142,6 +142,8 @@ class Datepicker {
         $returnField.click().focus();
       } else if ($departureField[0] !== _this.current && $departureField.val() === ''){
         $departureField.click().focus();
+      } else {
+        $mainDatePicker.hide();
       }
 
       if (date1) {
