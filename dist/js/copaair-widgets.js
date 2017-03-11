@@ -271,6 +271,14 @@ var _Signup = require('./widgets/Signup');
 
 var _Signup2 = _interopRequireDefault(_Signup);
 
+var _Autocomplete = require('./lib/Autocomplete');
+
+var _Autocomplete2 = _interopRequireDefault(_Autocomplete);
+
+var _FormHelper = require('./lib/FormHelper');
+
+var _FormHelper2 = _interopRequireDefault(_FormHelper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (function (factory) {
@@ -329,10 +337,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
     return o;
   };
+
+  window.CopaairWidget = {
+    Autocomplete: _Autocomplete2.default,
+    FormHelper: _FormHelper2.default
+  };
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./widgets/Booking":12,"./widgets/Signup":13}],6:[function(require,module,exports){
+},{"./lib/Autocomplete":6,"./lib/FormHelper":10,"./widgets/Booking":12,"./widgets/Signup":13}],6:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -795,6 +808,8 @@ var Datepicker = function () {
           $returnField.click().focus();
         } else if ($departureField[0] !== _this.current && $departureField.val() === '') {
           $departureField.click().focus();
+        } else {
+          $mainDatePicker.hide();
         }
 
         if (date1) {
