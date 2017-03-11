@@ -1,5 +1,7 @@
 import Booking from './widgets/Booking';
 import Signup from './widgets/Signup';
+import Autocomplete from './lib/Autocomplete';
+import FormHelper from './lib/FormHelper';
 
 (function (factory) {
   'use strict';
@@ -56,4 +58,9 @@ import Signup from './widgets/Signup';
 
     return o;
   };
+  
+  window.CopaairWidget = {
+    Autocomplete: Autocomplete,
+    FormHelper: FormHelper
+  }  
 }));
