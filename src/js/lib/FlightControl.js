@@ -4,9 +4,9 @@ import 'store-js';
 const defaults = {
   lang: 'es',
   api: {
-    destinations: 'https://flightcontrol.co/api/routes/destinations',
-    countries: 'https://flightcontrol.co/api/routes/countries',
-    regions: 'https://flightcontrol.co/api/routes/regions',
+    destinations: 'https://flightcontrol.io/api/routes/destinations',
+    countries: 'https://flightcontrol.io/api/routes/countries',
+    regions: 'https://flightcontrol.io/api/routes/regions',
   },
   storageExpiration: 86400000,
   storage: true,
