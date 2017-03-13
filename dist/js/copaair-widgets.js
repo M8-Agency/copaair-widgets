@@ -1252,7 +1252,7 @@ var FormHelper = function () {
           });
 
           ga(function (tracker) {
-            var linkerParam = tracker.get('linkerParam');
+            var linkerParam = ga.getAll()[0].get('linkerParam');
             var finalUrl = '' + url + linkerParam + '&' + httpQuery;
             var searchWindow = window.open(finalUrl, '_blank');
             searchWindow.focus();
