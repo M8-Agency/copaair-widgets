@@ -116,7 +116,7 @@ class FormHelper {
         });
 
         ga(function(tracker) {
-          let linkerParam = tracker.get('linkerParam');
+          let linkerParam = ga.getAll()[0].get('linkerParam');
           let finalUrl = `${url}${linkerParam}&${httpQuery}`;
           let searchWindow = window.open(finalUrl, '_blank');
           searchWindow.focus();
