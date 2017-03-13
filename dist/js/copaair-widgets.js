@@ -923,8 +923,9 @@ var Datepicker = function () {
         (0, _jquery2.default)('<button>', {
           type: 'button',
           text: closeButtonCopy,
-          click: function click() {
+          click: function click(e) {
             $mainDatePicker.hide();
+            e.preventDefault();
           }
         }).appendTo(buttonPane).addClass("ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all");
       }, 1);

@@ -256,8 +256,9 @@ class Datepicker {
       $('<button>', {
         type: 'button',
         text: closeButtonCopy,
-        click: function ()  {
+        click: function (e)  {
           $mainDatePicker.hide();
+          e.preventDefault();
         }
       }).appendTo( buttonPane ).addClass("ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all");
     }, 1);
