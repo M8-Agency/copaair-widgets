@@ -1223,6 +1223,8 @@ var FormHelper = function () {
   _createClass(FormHelper, [{
     key: 'process',
     value: function process() {
+      var _this = this;
+
       var url = this.options.formUrl;
       var validation = this.validationError();
       var coupon = this.options.booking.data('coupon');
@@ -1237,13 +1239,17 @@ var FormHelper = function () {
       if (validation.error) {
         // handle validation error messages
         if (this.options.analytics && typeof ga !== 'undefined') {
-          ga('send', 'event', this.options.bookingPage, 'error', 'User left required fields blank');
+          (window.GA_TRACKERS || ['send']).map(function (tracker) {
+            ga(tracker, 'event', _this.options.bookingPage, 'error', 'User left required fields blank');
+          });
         }
       } else {
         // no errors, forward form values to copa
         // console.log(httpQuery);
         if (this.options.analytics && typeof ga !== 'undefined') {
-          ga('send', 'event', this.options.bookingPage, 'click', 'Search flights');
+          (window.GA_TRACKERS || ['send']).map(function (tracker) {
+            ga(tracker, 'event', _this.options.bookingPage, 'click', 'Search flights');
+          });
 
           ga(function (tracker) {
             var linkerParam = tracker.get('linkerParam');
@@ -1333,37 +1339,37 @@ var FormHelper = function () {
   }, {
     key: 'events',
     value: function events() {
-      var _this = this;
+      var _this2 = this;
 
       this.options.booking.find('.js-cabin-class').on('click', function (e) {
-        _this.setCabinClass(e.target);
+        _this2.setCabinClass(e.target);
       });
 
       this.options.booking.find('.js-adults-amount').selectmenu({
         change: function change(e, ui) {
-          _this.setPassengersAmount('adult', ui.item.value);
+          _this2.setPassengersAmount('adult', ui.item.value);
         }
       });
 
       this.options.booking.find('.js-children-amount').selectmenu({
         change: function change(e, ui) {
-          _this.setPassengersAmount('child', ui.item.value);
+          _this2.setPassengersAmount('child', ui.item.value);
         }
       });
 
       this.options.booking.find('.js-infants-amount').selectmenu({
         change: function change(e, ui) {
-          _this.setPassengersAmount('infant', ui.item.value);
+          _this2.setPassengersAmount('infant', ui.item.value);
         }
       });
 
       this.options.booking.find('.js-coupon-code-input').on('change', function (e) {
-        _this.setCoupon(e.target.value);
+        _this2.setCoupon(e.target.value);
       });
 
       this.options.booking.find('.js-submit').on('click', function (e) {
         e.preventDefault();
-        _this.process();
+        _this2.process();
       });
     }
   }]);
@@ -1793,7 +1799,10 @@ var Signup = function () {
         var action = 'click';
         var category = (0, _jquery2.default)(this).data('ga-category');
         var label = (0, _jquery2.default)(this).data('ga-label');
-        ga('send', 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
+
+        (window.GA_TRACKERS || ['send']).map(function (tracker) {
+          ga(tracker, 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
+        });
       });
 
       $form.on('submit', function (e) {
@@ -1896,7 +1905,9 @@ var Signup = function () {
 
         (0, _jquery2.default)('.copaair-signup-message').text(lang[data.language] || lang.EN);
 
-        ga('send', 'event', { eventCategory: 'Subscription Form', eventAction: 'success', eventLabel: 'User was subscribed', transport: 'beacon' });
+        (window.GA_TRACKERS || ['send']).map(function (tracker) {
+          ga(tracker, 'event', { eventCategory: 'Subscription Form', eventAction: 'success', eventLabel: 'User was subscribed', transport: 'beacon' });
+        });
       });
     }
   }]);

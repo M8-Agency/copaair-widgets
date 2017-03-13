@@ -83,7 +83,10 @@ class Signup {
       let action = 'click';
       let category = $(this).data('ga-category');
       let label = $(this).data('ga-label');
-      ga('send', 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
+
+      (window.GA_TRACKERS || ['send']).map((tracker) => {
+        ga(tracker, 'event', { eventCategory: category, eventAction: action, eventLabel: label, transport: 'beacon' });
+      });
     });
 
     $form.on('submit', (e) => {
@@ -185,7 +188,9 @@ class Signup {
 
       $('.copaair-signup-message').text(lang[data.language] || lang.EN);
 
-      ga('send', 'event', { eventCategory: 'Subscription Form', eventAction: 'success', eventLabel: 'User was subscribed', transport: 'beacon' });
+      (window.GA_TRACKERS || ['send']).map((tracker) => {
+        ga(tracker, 'event', { eventCategory: 'Subscription Form', eventAction: 'success', eventLabel: 'User was subscribed', transport: 'beacon' });
+      });
     });
   }
 }
