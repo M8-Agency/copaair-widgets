@@ -271,6 +271,10 @@ var _Signup = require('./widgets/Signup');
 
 var _Signup2 = _interopRequireDefault(_Signup);
 
+var _Datepicker = require('./lib/Datepicker');
+
+var _Datepicker2 = _interopRequireDefault(_Datepicker);
+
 var _Autocomplete = require('./lib/Autocomplete');
 
 var _Autocomplete2 = _interopRequireDefault(_Autocomplete);
@@ -340,12 +344,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
   window.CopaairWidget = {
     Autocomplete: _Autocomplete2.default,
-    FormHelper: _FormHelper2.default
+    FormHelper: _FormHelper2.default,
+    Datepicker: _Datepicker2.default
   };
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/Autocomplete":6,"./lib/FormHelper":10,"./widgets/Booking":12,"./widgets/Signup":13}],6:[function(require,module,exports){
+},{"./lib/Autocomplete":6,"./lib/Datepicker":8,"./lib/FormHelper":10,"./widgets/Booking":12,"./widgets/Signup":13}],6:[function(require,module,exports){
 (function (global){
 'use strict';
 

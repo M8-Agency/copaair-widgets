@@ -1,5 +1,6 @@
 import Booking from './widgets/Booking';
 import Signup from './widgets/Signup';
+import Datepicker from './lib/Datepicker';
 import Autocomplete from './lib/Autocomplete';
 import FormHelper from './lib/FormHelper';
 
@@ -61,6 +62,7 @@ import FormHelper from './lib/FormHelper';
   
   window.CopaairWidget = {
     Autocomplete: Autocomplete,
-    FormHelper: FormHelper
-  }  
+    FormHelper: FormHelper,
+    Datepicker: Datepicker
+  }
 }));
