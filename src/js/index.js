@@ -59,7 +59,7 @@ import FormHelper from './lib/FormHelper';
 
     return o;
   };
-  
+
   window.CopaairWidget = {
     Autocomplete: Autocomplete,
     FormHelper: FormHelper,
