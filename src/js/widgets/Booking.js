@@ -138,6 +138,7 @@ class Booking {
   setupSelectMenus() {
     if (! this.options.nativeSelect) {
       this.$booking.find('.js-selectmenu').selectmenu({
+        appendTo: this.$booking,
         position: this.options.widgetPosition,
       });
     }
