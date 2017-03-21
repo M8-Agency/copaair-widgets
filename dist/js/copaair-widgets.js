@@ -1239,7 +1239,7 @@ var FormHelper = function () {
       }
 
       var httpQuery = _jquery2.default.param(this.options.inputs);
-      httpQuery += '&' + _jquery2.default.param({ d1: this._defaults.d1 });
+      httpQuery += '&' + _jquery2.default.param({ d1: this.options.d1 || this._defaults.d1 });
 
       if (validation.error) {
         // handle validation error messages

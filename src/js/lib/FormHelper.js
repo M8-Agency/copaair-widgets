@@ -98,7 +98,7 @@ class FormHelper {
     }
 
     let httpQuery = $.param(this.options.inputs);
-    httpQuery += `&${$.param({ d1: this._defaults.d1 })}`;
+    httpQuery += `&${$.param({ d1: this.options.d1 || this._defaults.d1 })}`;
 
     if (validation.error) {
       // handle validation error messages
