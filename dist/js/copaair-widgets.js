@@ -1618,7 +1618,7 @@ var Booking = function () {
           e.stopPropagation();
 
           // set display value to the input
-          (0, _jquery2.default)(this).val(ui.item.display);
+          (0, _jquery2.default)(this).val(ui.item.display).blur();
           // set actual value at the booking object
           formHelper.setBounds((0, _jquery2.default)(this).data('input-field'), ui.item.value);
         },
@@ -1664,7 +1664,7 @@ var Booking = function () {
 
       if (this.options.collapsable) {
         // Show bottom row when any input gets focus
-        $booking.on('focus.copaair', 'input', function () {
+        $booking.on('click', '.copaair-booking-top', function () {
           $booking.addClass('copaair-widget-open');
           $toggle.removeClass('copaair-hidden');
         });

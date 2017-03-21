@@ -116,7 +116,7 @@ class Booking {
         e.stopPropagation();
 
         // set display value to the input
-        $(this).val(ui.item.display);
+        $(this).val(ui.item.display).blur();
         // set actual value at the booking object
         formHelper.setBounds($(this).data('input-field'), ui.item.value);
       },
@@ -155,7 +155,7 @@ class Booking {
 
     if (this.options.collapsable) {
       // Show bottom row when any input gets focus
-      $booking.on('focus.copaair', 'input', () => {
+      $booking.on('click', '.copaair-booking-top', () => {
         $booking.addClass('copaair-widget-open');
         $toggle.removeClass('copaair-hidden');
       });
