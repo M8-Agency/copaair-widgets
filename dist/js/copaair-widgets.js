@@ -1266,6 +1266,23 @@ var FormHelper = function () {
           var searchWindow = window.open(url + httpQuery, '_blank');
           searchWindow.focus();
         }
+
+        (function () {
+          var tti, s;
+
+          if (typeof ENABLE_TEADS === 'undefined') {
+            return;
+          }
+
+          tti = document.createElement('iframe');
+          tti.setAttribute("width", "1px");
+          tti.setAttribute("height", "1px");
+          tti.style.display = "none";
+          tti.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 't.teads.tv/i/3916/Landingpage?rnd=' + new Date().getTime();
+
+          s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(tti, s);
+        })();
       }
     }
   }, {
