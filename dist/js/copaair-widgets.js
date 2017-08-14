@@ -384,7 +384,7 @@ var Autocomplete = function () {
             var _this = this;
 
             var flightControl = new _FlightControl2.default({ lang: this.options.lang });
-
+            console.log('destinationsAutocomplete', this.options.notParticipating);
             flightControl.fetch('destinations', this.options.notParticipating, function (destinations) {
                 // Format raw destinations to autocomplete structure
                 _this.options.source = _this.format(destinations.list);
@@ -548,7 +548,7 @@ var DataMenu = function () {
 
             if (!this.options.data) {
                 var flightControl = new _FlightControl2.default({ lang: this.options.lang });
-
+                console.log('dataMenu', this.options.notParticipating);
                 flightControl.fetch(this.options.contentType, this.options.notParticipating, function (data) {
                     // Format raw destinations to autocomplete structure
                     _this.options.source = _this.format(data.list);
