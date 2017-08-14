@@ -1631,7 +1631,7 @@ exports.default = Booking;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1656,152 +1656,155 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var ga = window.ga;
 var defaults = {
-  lang: 'es',
-  nativeSelect: false,
-  widgetPosition: {
-    my: 'left bottom',
-    at: 'left top'
-  }
+    lang: 'es',
+    nativeSelect: false,
+    widgetPosition: {
+        my: 'left bottom',
+        at: 'left top'
+    },
+    notParticipating: []
 };
 
 var Signup = function () {
-  function Signup(element, options) {
-    var _this = this;
+    function Signup(element, options) {
+        var _this = this;
 
-    _classCallCheck(this, Signup);
+        _classCallCheck(this, Signup);
 
-    this.$form = (0, _jquery2.default)(element);
-    this.options = _jquery2.default.extend({}, defaults, options);
-
-    // Load template
-    return new _Template2.default('signup', {
-      lang: this.options.lang,
-      callback: function callback(html) {
-        _this.$form.html(html);
-        _this.signupEvents();
-        var lang = _this.options.lang;
-
-        _this.$form.find('.js-selectmenu').each(function signupDataMenu() {
-          return new _DataMenu2.default({
-            lang: lang,
-            contentType: (0, _jquery2.default)(this).data('content'),
-            selector: (0, _jquery2.default)(this)
-          });
-        });
-
-        _this.setupSelectMenus();
-
-        (0, _jquery2.default)('.js-signup-date').datepicker({
-          changeMonth: true,
-          changeYear: true,
-          format: 'dd/mm/yy',
-          yearRange: '-100:+0',
-          beforeShow: function beforeShow(input, isnt) {
-            setTimeout(function () {
-              isnt.dpDiv.position({
-                my: 'left bottom',
-                at: 'left top',
-                of: input
-              });
-            }, 0);
-          }
-        });
-      }
-    });
-  }
-
-  /**
-   * Replaces select menus with custom UI widgets
-   */
-
-
-  _createClass(Signup, [{
-    key: 'setupSelectMenus',
-    value: function setupSelectMenus() {
-      if (!this.options.nativeSelect) {
-        this.$form.find('.js-selectmenu').selectmenu({
-          position: this.options.widgetPosition
-        });
-      }
-
-      return this;
-    }
-  }, {
-    key: 'signupEvents',
-    value: function signupEvents() {
-      var _this2 = this;
-
-      var $form = this.$form;
-      var $toggle = this.$form.find('.js-copaair-toggle');
-
-      // Show bottom row when any input gets focus
-      $form.on('focus.copaair', 'input', function () {
-        $form.addClass('copaair-widget-open');
-        $toggle.removeClass('copaair-hidden');
-      });
-
-      $form.on('submit', function (e) {
-        e.preventDefault();
-        _this2.submitForm(e.target);
-      });
-
-      (0, _jquery2.default)('.js-country-selector').selectmenu({
-        change: function change(e, ui) {
-          this.options.country = ui.item.value;
-
-          var destinations = store.get('destinations');
-          var selected = [];
-
-          for (var d in destinations.val) {
-            if (destinations.val[d].country === this.options.country) {
-              selected.push(destinations.val[d]);
-            }
-          }
-
-          (0, _jquery2.default)('.js-city-selector').selectmenu('refresh');
-
-          return new _DataMenu2.default({
+        this.$form = (0, _jquery2.default)(element);
+        this.options = _jquery2.default.extend({}, defaults, options);
+        var _notParticipating = this.option.notParticipating;
+        // Load template
+        return new _Template2.default('signup', {
             lang: this.options.lang,
-            data: selected,
-            selector: (0, _jquery2.default)('.js-city-selector')
-          });
-        }
-      });
+            notParticipating: _notParticipating,
+            callback: function callback(html) {
+                _this.$form.html(html);
+                _this.signupEvents();
+                var lang = _this.options.lang;
 
-      (0, _jquery2.default)('.js-city-selector').selectmenu({
-        change: function change(e, ui) {
-          this.options.city = ui.item.value;
-        }
-      });
+                _this.$form.find('.js-selectmenu').each(function signupDataMenu() {
+                    return new _DataMenu2.default({
+                        lang: lang,
+                        contentType: (0, _jquery2.default)(this).data('content'),
+                        selector: (0, _jquery2.default)(this),
+                        notParticipating: _notParticipating
+                    });
+                });
+
+                _this.setupSelectMenus();
+
+                (0, _jquery2.default)('.js-signup-date').datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    format: 'dd/mm/yy',
+                    yearRange: '-100:+0',
+                    beforeShow: function beforeShow(input, isnt) {
+                        setTimeout(function () {
+                            isnt.dpDiv.position({
+                                my: 'left bottom',
+                                at: 'left top',
+                                of: input
+                            });
+                        }, 0);
+                    }
+                });
+            }
+        });
     }
-  }, {
-    key: 'submitForm',
-    value: function submitForm(target) {
-      var $form = (0, _jquery2.default)(target);
 
-      var data = $form.serializeObject();
-      data.fullname = data.first_name + ' ' + data.last_name;
-      data.source = this.options.source;
-      data.language = this.options.lang.toUpperCase();
-      data.city = this.options.city;
-      data.country = this.options.country;
+    /**
+     * Replaces select menus with custom UI widgets
+     */
 
-      var container = this.options.container;
 
-      _jquery2.default.ajax({
-        data: data,
-        type: 'POST',
-        url: 'https://flightcontrol.io/api/signup/add'
-      }).done(function () {
-        container.fadeOut();
-        if (typeof ga !== 'undefined') {
-          ga('send', 'event', 'Subscription Form', 'subscribed', 'User was subscribed');
+    _createClass(Signup, [{
+        key: 'setupSelectMenus',
+        value: function setupSelectMenus() {
+            if (!this.options.nativeSelect) {
+                this.$form.find('.js-selectmenu').selectmenu({
+                    position: this.options.widgetPosition
+                });
+            }
+
+            return this;
         }
-      });
-    }
-  }]);
+    }, {
+        key: 'signupEvents',
+        value: function signupEvents() {
+            var _this2 = this;
 
-  return Signup;
+            var $form = this.$form;
+            var $toggle = this.$form.find('.js-copaair-toggle');
+
+            // Show bottom row when any input gets focus
+            $form.on('focus.copaair', 'input', function () {
+                $form.addClass('copaair-widget-open');
+                $toggle.removeClass('copaair-hidden');
+            });
+
+            $form.on('submit', function (e) {
+                e.preventDefault();
+                _this2.submitForm(e.target);
+            });
+
+            (0, _jquery2.default)('.js-country-selector').selectmenu({
+                change: function change(e, ui) {
+                    this.options.country = ui.item.value;
+
+                    var destinations = store.get('destinations');
+                    var selected = [];
+
+                    for (var d in destinations.val) {
+                        if (destinations.val[d].country === this.options.country) {
+                            selected.push(destinations.val[d]);
+                        }
+                    }
+
+                    (0, _jquery2.default)('.js-city-selector').selectmenu('refresh');
+
+                    return new _DataMenu2.default({
+                        lang: this.options.lang,
+                        data: selected,
+                        selector: (0, _jquery2.default)('.js-city-selector')
+                    });
+                }
+            });
+
+            (0, _jquery2.default)('.js-city-selector').selectmenu({
+                change: function change(e, ui) {
+                    this.options.city = ui.item.value;
+                }
+            });
+        }
+    }, {
+        key: 'submitForm',
+        value: function submitForm(target) {
+            var $form = (0, _jquery2.default)(target);
+
+            var data = $form.serializeObject();
+            data.fullname = data.first_name + ' ' + data.last_name;
+            data.source = this.options.source;
+            data.language = this.options.lang.toUpperCase();
+            data.city = this.options.city;
+            data.country = this.options.country;
+
+            var container = this.options.container;
+
+            _jquery2.default.ajax({
+                data: data,
+                type: 'POST',
+                url: 'https://flightcontrol.io/api/signup/add'
+            }).done(function () {
+                container.fadeOut();
+                if (typeof ga !== 'undefined') {
+                    ga('send', 'event', 'Subscription Form', 'subscribed', 'User was subscribed');
+                }
+            });
+        }
+    }]);
+
+    return Signup;
 }();
 
 exports.default = Signup;
