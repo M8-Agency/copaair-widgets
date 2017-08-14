@@ -24,11 +24,12 @@
   <script>
   $(document).ready(function() {
       $('#copa-booking-example').copaairBooking({
-        lang: 'es',
+        lang: 'en',
         templatePath: 'templates',
         languagePath: 'lang/',
         widgetPosition: { my: 'left bottom', at: 'left top' },
         datepickerPosition: 'bottom',
+        notParticipating: ['US', 'VE', 'MX', 'PA', 'CA', 'BO', 'PR']
       });
   });
   </script>

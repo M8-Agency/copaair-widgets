@@ -44,46 +44,38 @@
       var r = s.key(n);e(r, t.get(r));
     }
   };else if (n.documentElement.addBehavior) {
-    var u, a;
-    var l, c;
+    var h = function h(e) {
+      return e.replace(/^d/, "___$&").replace(c, "___");
+    };
 
-    (function () {
-      var h = function h(e) {
-        return e.replace(/^d/, "___$&").replace(c, "___");
+    var u, a;try {
+      a = new ActiveXObject("htmlfile"), a.open(), a.write("<" + i + ">document.w=window</" + i + '><iframe src="/favicon.ico"></iframe>'), a.close(), u = a.w.frames[0].document, s = u.createElement("div");
+    } catch (f) {
+      s = n.createElement("div"), u = n.body;
+    }var l = function l(e) {
+      return function () {
+        var n = Array.prototype.slice.call(arguments, 0);n.unshift(s), u.appendChild(s), s.addBehavior("#default#userData"), s.load(r);var i = e.apply(t, n);return u.removeChild(s), i;
       };
-
-      try {
-        a = new ActiveXObject("htmlfile"), a.open(), a.write("<" + i + ">document.w=window</" + i + '><iframe src="/favicon.ico"></iframe>'), a.close(), u = a.w.frames[0].document, s = u.createElement("div");
-      } catch (f) {
-        s = n.createElement("div"), u = n.body;
+    },
+        c = new RegExp("[!\"#$%&'()*+,/\\\\:;<=>?@[\\]^`{|}~]", "g");t.set = l(function (e, n, i) {
+      return n = h(n), i === undefined ? t.remove(n) : (e.setAttribute(n, t.serialize(i)), e.save(r), i);
+    }), t.get = l(function (e, n, r) {
+      n = h(n);var i = t.deserialize(e.getAttribute(n));return i === undefined ? r : i;
+    }), t.remove = l(function (e, t) {
+      t = h(t), e.removeAttribute(t), e.save(r);
+    }), t.clear = l(function (e) {
+      var t = e.XMLDocument.documentElement.attributes;e.load(r);for (var n = 0, i; i = t[n]; n++) {
+        e.removeAttribute(i.name);
+      }e.save(r);
+    }), t.getAll = function (e) {
+      var n = {};return t.forEach(function (e, t) {
+        n[e] = t;
+      }), n;
+    }, t.forEach = l(function (e, n) {
+      var r = e.XMLDocument.documentElement.attributes;for (var i = 0, s; s = r[i]; ++i) {
+        n(s.name, t.deserialize(e.getAttribute(s.name)));
       }
-      l = function l(e) {
-        return function () {
-          var n = Array.prototype.slice.call(arguments, 0);n.unshift(s), u.appendChild(s), s.addBehavior("#default#userData"), s.load(r);var i = e.apply(t, n);return u.removeChild(s), i;
-        };
-      };
-
-      c = new RegExp("[!\"#$%&'()*+,/\\\\:;<=>?@[\\]^`{|}~]", "g");
-      t.set = l(function (e, n, i) {
-        return n = h(n), i === undefined ? t.remove(n) : (e.setAttribute(n, t.serialize(i)), e.save(r), i);
-      }), t.get = l(function (e, n, r) {
-        n = h(n);var i = t.deserialize(e.getAttribute(n));return i === undefined ? r : i;
-      }), t.remove = l(function (e, t) {
-        t = h(t), e.removeAttribute(t), e.save(r);
-      }), t.clear = l(function (e) {
-        var t = e.XMLDocument.documentElement.attributes;e.load(r);for (var n = 0, i; i = t[n]; n++) {
-          e.removeAttribute(i.name);
-        }e.save(r);
-      }), t.getAll = function (e) {
-        var n = {};return t.forEach(function (e, t) {
-          n[e] = t;
-        }), n;
-      }, t.forEach = l(function (e, n) {
-        var r = e.XMLDocument.documentElement.attributes;for (var i = 0, s; s = r[i]; ++i) {
-          n(s.name, t.deserialize(e.getAttribute(s.name)));
-        }
-      });
-    })();
+    });
   }try {
     var p = "__storejs__";t.set(p, p), t.get(p) != p && (t.disabled = !0), t.remove(p);
   } catch (f) {
@@ -337,7 +329,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -360,140 +352,140 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @class
  */
 var Autocomplete = function () {
-  /**
-   * Constructor
-   * @param  {Object} options Custom options for this widget instance.
-   */
-  function Autocomplete(options) {
-    _classCallCheck(this, Autocomplete);
+    /**
+     * Constructor
+     * @param  {Object} options Custom options for this widget instance.
+     */
+    function Autocomplete(options) {
+        _classCallCheck(this, Autocomplete);
 
-    var defaults = {
-      delay: 0,
-      lang: 'es',
-      minLength: 0,
-      originSelected: false,
-      destinationSelected: false
-    };
-
-    this.options = _jquery2.default.extend({}, defaults, options);
-  }
-
-  /**
-   * Get destinations from Flight Control API
-   * @param  {Function} cb Callback when API call finishes
-   *                       and destinations are fetched
-   * @return {void}
-   */
-
-
-  _createClass(Autocomplete, [{
-    key: 'start',
-    value: function start(cb) {
-      var _this = this;
-
-      var flightControl = new _FlightControl2.default({ lang: this.options.lang });
-
-      flightControl.fetch('destinations', function (destinations) {
-        // Format raw destinations to autocomplete structure
-        _this.options.source = _this.format(destinations.list);
-
-        if (typeof cb === 'function') {
-          cb();
-        }
-      });
+        var defaults = {
+            delay: 0,
+            lang: 'es',
+            minLength: 0,
+            originSelected: false,
+            destinationSelected: false,
+            notParticipating: []
+        };
+        this.options = _jquery2.default.extend({}, defaults, options);
     }
 
     /**
-     * Render autocomplete widget
-     * @param  {Object} element DOM element to attach widget to
+     * Get destinations from Flight Control API
+     * @param  {Function} cb Callback when API call finishes
+     *                       and destinations are fetched
+     * @return {void}
      */
 
-  }, {
-    key: 'render',
-    value: function render(element) {
-      var $this = (0, _jquery2.default)(element).hide();
-      var sourceClasses = $this.attr('class');
-      var sourceValue = $this.val();
-      var sourcePlaceholder = $this.attr('placeholder');
-      var dataInput = $this.data('input-field');
 
-      var $input = (0, _jquery2.default)('<input />').val(sourceValue).attr('type', 'text').attr('placeholder', sourcePlaceholder).attr('data-input-field', dataInput);
+    _createClass(Autocomplete, [{
+        key: 'start',
+        value: function start(cb) {
+            var _this = this;
 
-      // Add autocomplete functionality
-      $input.autocomplete(this.options);
+            var flightControl = new _FlightControl2.default({ lang: this.options.lang });
 
-      // Open list on input focus
-      $input.on('focus', function () {
-        if ($input.val().length === 0) {
-          $input.autocomplete('search');
+            flightControl.fetch('destinations', this.options.notParticipating, function (destinations) {
+                // Format raw destinations to autocomplete structure
+                _this.options.source = _this.format(destinations.list);
+
+                if (typeof cb === 'function') {
+                    cb();
+                }
+            });
         }
-      });
 
-      // Add styling
-      $input.addClass(sourceClasses).addClass('ui-widget  ui-widget-content  ui-state-default');
+        /**
+         * Render autocomplete widget
+         * @param  {Object} element DOM element to attach widget to
+         */
 
-      // Insert into DOM
-      $input.insertAfter($this);
+    }, {
+        key: 'render',
+        value: function render(element) {
+            var $this = (0, _jquery2.default)(element).hide();
+            var sourceClasses = $this.attr('class');
+            var sourceValue = $this.val();
+            var sourcePlaceholder = $this.attr('placeholder');
+            var dataInput = $this.data('input-field');
 
-      // Overwrite autocomplete item rendering with custom markup
-      $input.autocomplete('instance')._renderItem = function autoCompleteRenderItem(ul, item) {
-        return (0, _jquery2.default)('<li>').append(item.label).appendTo(ul);
-      };
+            var $input = (0, _jquery2.default)('<input />').val(sourceValue).attr('type', 'text').attr('placeholder', sourcePlaceholder).attr('data-input-field', dataInput);
 
-      // Custom filtering function
-      _jquery2.default.ui.autocomplete.filter = function autoCompleteFilter(array, term) {
-        var matcher = new RegExp('\\b' + _jquery2.default.ui.autocomplete.escapeRegex(term), 'i');
-        return _jquery2.default.grep(array, function (value) {
-          return matcher.test(value.label || value.value || value);
-        });
-      };
+            // Add autocomplete functionality
+            $input.autocomplete(this.options);
 
-      if (this.options.destinationSelected && dataInput === 'destination') {
-        $input.autocomplete('search', this.options.destinationSelected);
-        var $selected = $input.autocomplete('widget');
-        (0, _jquery2.default)($selected[0].children[0]).click();
-      }
+            // Open list on input focus
+            $input.on('focus', function () {
+                if ($input.val().length === 0) {
+                    $input.autocomplete('search');
+                }
+            });
 
-      if (this.options.originSelected && dataInput === 'origin') {
-        $input.autocomplete('search', this.options.originSelected);
-        var _$selected = $input.autocomplete('widget');
-        (0, _jquery2.default)(_$selected[0].children[0]).click();
-      }
+            // Add styling
+            $input.addClass(sourceClasses).addClass('ui-widget  ui-widget-content  ui-state-default');
 
-      return this;
-    }
+            // Insert into DOM
+            $input.insertAfter($this);
 
-    /**
-     * Formats destinations into the needed structure to be displayed
-     * on the autocomplete menu widget.
-     * @param  {Array} destinations Raw data returned from Flight Control
-     * @return {Array}              Formatted destinations
-     */
+            // Overwrite autocomplete item rendering with custom markup
+            $input.autocomplete('instance')._renderItem = function autoCompleteRenderItem(ul, item) {
+                return (0, _jquery2.default)('<li>').append(item.label).appendTo(ul);
+            };
 
-  }, {
-    key: 'format',
-    value: function format(destinations) {
-      var _this2 = this;
+            // Custom filtering function
+            _jquery2.default.ui.autocomplete.filter = function autoCompleteFilter(array, term) {
+                var matcher = new RegExp('\\b' + _jquery2.default.ui.autocomplete.escapeRegex(term), 'i');
+                return _jquery2.default.grep(array, function (value) {
+                    return matcher.test(value.label || value.value || value);
+                });
+            };
 
-      var result = [];
+            if (this.options.destinationSelected && dataInput === 'destination') {
+                $input.autocomplete('search', this.options.destinationSelected);
+                var $selected = $input.autocomplete('widget');
+                (0, _jquery2.default)($selected[0].children[0]).click();
+            }
 
-      _jquery2.default.each(destinations, function (i, dest) {
-        var tempLabel = '<b>' + dest.name[_this2.options.lang] + ', ' + dest.country + '</b>\n        <span class="code"> | ' + dest.id + '</span>';
-        var tempValue = dest.id;
-        var textValue = dest.name[_this2.options.lang] + ', ' + dest.id;
+            if (this.options.originSelected && dataInput === 'origin') {
+                $input.autocomplete('search', this.options.originSelected);
+                var _$selected = $input.autocomplete('widget');
+                (0, _jquery2.default)(_$selected[0].children[0]).click();
+            }
 
-        result.push({
-          label: tempLabel,
-          value: tempValue,
-          display: textValue
-        });
-      });
+            return this;
+        }
 
-      return result;
-    }
-  }]);
+        /**
+         * Formats destinations into the needed structure to be displayed
+         * on the autocomplete menu widget.
+         * @param  {Array} destinations Raw data returned from Flight Control
+         * @return {Array}              Formatted destinations
+         */
 
-  return Autocomplete;
+    }, {
+        key: 'format',
+        value: function format(destinations) {
+            var _this2 = this;
+
+            var result = [];
+
+            _jquery2.default.each(destinations, function (i, dest) {
+                var tempLabel = '<b>' + dest.name[_this2.options.lang] + ', ' + dest.country + '</b>\n        <span class="code"> | ' + dest.id + '</span>';
+                var tempValue = dest.id;
+                var textValue = dest.name[_this2.options.lang] + ', ' + dest.id;
+
+                result.push({
+                    label: tempLabel,
+                    value: tempValue,
+                    display: textValue
+                });
+            });
+
+            return result;
+        }
+    }]);
+
+    return Autocomplete;
 }();
 
 /**
@@ -510,7 +502,7 @@ exports.default = Autocomplete;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -528,86 +520,87 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var defaults = {
-  lang: 'es',
-  data: null,
-  contentType: 'countries',
-  callback: function callback() {}
+    lang: 'es',
+    data: null,
+    contentType: 'countries',
+    notParticipating: [],
+    callback: function callback() {}
 };
 
 var DataMenu = function () {
-  /**
-   * Constructor
-   * @param  {Object} options Custom options for this widget instance.
-   */
-  function DataMenu(options) {
-    _classCallCheck(this, DataMenu);
-
-    this.options = _jquery2.default.extend({}, defaults, options);
-    this._defaults = defaults;
-
-    this.setup();
-  }
-
-  _createClass(DataMenu, [{
-    key: 'setup',
-    value: function setup(cb) {
-      var _this = this;
-
-      if (!this.options.data) {
-        var flightControl = new _FlightControl2.default({ lang: this.options.lang });
-
-        flightControl.fetch(this.options.contentType, function (data) {
-          // Format raw destinations to autocomplete structure
-          _this.options.source = _this.format(data.list);
-          _this.render();
-          if (typeof cb === 'function') {
-            cb();
-          }
-        });
-      } else {
-        this.options.source = this.format(this.options.data);
-        this.render(true);
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render(newInput) {
-      var _this2 = this;
-
-      if (newInput) {
-        (0, _jquery2.default)(this.options.selector).find('option').slice(1).remove();
-      }
-      _jquery2.default.each(this.options.source, function (i, item) {
-        (0, _jquery2.default)(_this2.options.selector).append(item.display);
-      });
-    }
-
     /**
-     * Formats data into the needed structure to be displayed
-     * on the autocomplete menu widget.
-     * @param  {Array} destinations Raw data returned from Flight Control
-     * @return {Array}              Formatted destinations
+     * Constructor
+     * @param  {Object} options Custom options for this widget instance.
      */
+    function DataMenu(options) {
+        _classCallCheck(this, DataMenu);
 
-  }, {
-    key: 'format',
-    value: function format(list) {
-      var _this3 = this;
+        this.options = _jquery2.default.extend({}, defaults, options);
+        this._defaults = defaults;
 
-      var result = [];
-
-      _jquery2.default.each(list, function (i, item) {
-        var option = '<option value="' + item.id + '">' + item.name[_this3.options.lang] + '</option>';
-        result.push({
-          display: option
-        });
-      });
-
-      return result;
+        this.setup();
     }
-  }]);
 
-  return DataMenu;
+    _createClass(DataMenu, [{
+        key: 'setup',
+        value: function setup(cb) {
+            var _this = this;
+
+            if (!this.options.data) {
+                var flightControl = new _FlightControl2.default({ lang: this.options.lang });
+
+                flightControl.fetch(this.options.contentType, this.options.notParticipating, function (data) {
+                    // Format raw destinations to autocomplete structure
+                    _this.options.source = _this.format(data.list);
+                    _this.render();
+                    if (typeof cb === 'function') {
+                        cb();
+                    }
+                });
+            } else {
+                this.options.source = this.format(this.options.data);
+                this.render(true);
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render(newInput) {
+            var _this2 = this;
+
+            if (newInput) {
+                (0, _jquery2.default)(this.options.selector).find('option').slice(1).remove();
+            }
+            _jquery2.default.each(this.options.source, function (i, item) {
+                (0, _jquery2.default)(_this2.options.selector).append(item.display);
+            });
+        }
+
+        /**
+         * Formats data into the needed structure to be displayed
+         * on the autocomplete menu widget.
+         * @param  {Array} destinations Raw data returned from Flight Control
+         * @return {Array}              Formatted destinations
+         */
+
+    }, {
+        key: 'format',
+        value: function format(list) {
+            var _this3 = this;
+
+            var result = [];
+
+            _jquery2.default.each(list, function (i, item) {
+                var option = '<option value="' + item.id + '">' + item.name[_this3.options.lang] + '</option>';
+                result.push({
+                    display: option
+                });
+            });
+
+            return result;
+        }
+    }]);
+
+    return DataMenu;
 }();
 
 exports.default = DataMenu;
@@ -931,7 +924,7 @@ exports.default = Datepicker;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -947,14 +940,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var defaults = {
-  lang: 'es',
-  api: {
-    destinations: 'https://flightcontrol.io/api/routes/destinations',
-    countries: 'https://flightcontrol.io/api/routes/countries',
-    regions: 'https://flightcontrol.io/api/routes/regions'
-  },
-  storageExpiration: 86400000,
-  storage: true
+    lang: 'es',
+    api: {
+        destinations: 'https://flightcontrol.io/api/routes/destinations',
+        countries: 'https://flightcontrol.io/api/routes/countries',
+        regions: 'https://flightcontrol.io/api/routes/regions'
+    },
+    storageExpiration: 86400000,
+    storage: true
 };
 
 /**
@@ -963,26 +956,26 @@ var defaults = {
  * @type {Object}
  */
 var storeWidthExpiration = {
-  set: function set(key, val, exp) {
-    store.set(key, {
-      val: val,
-      exp: exp,
-      time: new Date().getTime()
-    });
-  },
-  get: function get(key) {
-    var info = store.get(key);
+    set: function set(key, val, exp) {
+        store.set(key, {
+            val: val,
+            exp: exp,
+            time: new Date().getTime()
+        });
+    },
+    get: function get(key) {
+        var info = store.get(key);
 
-    if (!info) {
-      return null;
+        if (!info) {
+            return null;
+        }
+
+        if (new Date().getTime() - info.time > info.exp) {
+            return null;
+        }
+
+        return info.val;
     }
-
-    if (new Date().getTime() - info.time > info.exp) {
-      return null;
-    }
-
-    return info.val;
-  }
 };
 
 /**
@@ -990,90 +983,112 @@ var storeWidthExpiration = {
  */
 
 var FlightControl = function () {
-  function FlightControl(options) {
-    _classCallCheck(this, FlightControl);
+    function FlightControl(options) {
+        _classCallCheck(this, FlightControl);
 
-    this.options = _jquery2.default.extend({}, defaults, options);
-    this._defaults = defaults;
+        this.options = _jquery2.default.extend({}, defaults, options);
+        this._defaults = defaults;
 
-    if (!store.enabled) {
-      console.log('browser not supported or in private mode');
-      this.options.storage = false;
-    }
-  }
-
-  /**
-   * Fetch data from flight controller
-   * based on the resource name
-   * @param  {string}   resourceName: destinations|countries|regions
-   * @param  {Function} cb  callback
-   * @return {Function} callback
-   */
-
-
-  _createClass(FlightControl, [{
-    key: 'fetch',
-    value: function fetch(resourceName, cb) {
-      var _this = this;
-
-      var resourceValue = {};
-
-      if (this.options.storage && storeWidthExpiration.get(resourceName) && storeWidthExpiration.get(resourceName + '.count')) {
-        resourceValue.list = storeWidthExpiration.get(resourceName);
-        resourceValue.count = storeWidthExpiration.get(resourceName + '.count');
-
-        return cb(resourceValue);
-      }
-
-      if (typeof IE9Data !== 'undefined') {
-        var data = IE9Data[resourceName];
-        this.sortNames(data);
-
-        if (this.options.storage) {
-          storeWidthExpiration.set(resourceName, data, this.options.storageExpiration);
-          storeWidthExpiration.set(resourceName + '.count', data.length, this.options.storageExpiration);
+        if (!store.enabled) {
+            console.log('browser not supported or in private mode');
+            this.options.storage = false;
         }
-        resourceValue.list = data;
-        resourceValue.count = data.length;
-
-        cb(resourceValue);
-      } else {
-        _jquery2.default.getJSON(this.options.api[resourceName], function (data) {
-          _this.sortNames(data);
-
-          if (_this.options.storage) {
-            storeWidthExpiration.set(resourceName, data, _this.options.storageExpiration);
-            storeWidthExpiration.set(resourceName + '.count', data.length, _this.options.storageExpiration);
-          }
-          resourceValue.list = data;
-          resourceValue.count = data.length;
-
-          cb(resourceValue);
-        });
-      }
     }
 
     /**
-     * Helper function to sort data
-     * based on language
-     * @param  {Object} data
+     * Fetch data from flight controller
+     * based on the resource name
+     * @param  {string}   resourceName: destinations|countries|regions
+     * @param  {Function} cb  callback
+     * @return {Function} callback
      */
 
-  }, {
-    key: 'sortNames',
-    value: function sortNames(data) {
-      var _this2 = this;
 
-      data.sort(function (a, b) {
-        if (a.name[_this2.options.lang] > b.name[_this2.options.lang]) return 1;
-        if (a.name[_this2.options.lang] < b.name[_this2.options.lang]) return -1;
+    _createClass(FlightControl, [{
+        key: 'fetch',
+        value: function fetch(resourceName, notParticipating, cb) {
+            var _this = this;
 
-        return 0;
-      });
-    }
-  }]);
+            var resourceValue = {};
 
-  return FlightControl;
+            if (this.options.storage && storeWidthExpiration.get(resourceName) && storeWidthExpiration.get(resourceName + '.count')) {
+                resourceValue.list = storeWidthExpiration.get(resourceName);
+                resourceValue.count = storeWidthExpiration.get(resourceName + '.count');
+
+                return cb(resourceValue);
+            }
+
+            if (typeof IE9Data !== 'undefined') {
+                var data = IE9Data[resourceName];
+                this.sortNames(data);
+                var _data = this.filterCountried(data, notParticipating);
+                if (this.options.storage) {
+                    storeWidthExpiration.set(resourceName, _data, this.options.storageExpiration);
+                    storeWidthExpiration.set(resourceName + '.count', _data.length, this.options.storageExpiration);
+                }
+                resourceValue.list = _data;
+                resourceValue.count = _data.length;
+
+                cb(resourceValue);
+            } else {
+                _jquery2.default.getJSON(this.options.api[resourceName], function (data) {
+                    _this.sortNames(data);
+                    var _data = _this.filterCountried(data, notParticipating);
+                    if (_this.options.storage) {
+                        storeWidthExpiration.set(resourceName, _data, _this.options.storageExpiration);
+                        storeWidthExpiration.set(resourceName + '.count', _data.length, _this.options.storageExpiration);
+                    }
+                    resourceValue.list = _data;
+                    resourceValue.count = _data.length;
+
+                    cb(resourceValue);
+                });
+            }
+        }
+
+        /**
+         * Helper function to sort data
+         * based on language
+         * @param  {Object} data
+         */
+
+    }, {
+        key: 'sortNames',
+        value: function sortNames(data) {
+            var _this2 = this;
+
+            data.sort(function (a, b) {
+                if (a.name[_this2.options.lang] > b.name[_this2.options.lang]) return 1;
+                if (a.name[_this2.options.lang] < b.name[_this2.options.lang]) return -1;
+
+                return 0;
+            });
+        }
+
+        /**
+         * Helper function to sort data
+         * based on language
+         * @param  {Object} data
+         */
+
+    }, {
+        key: 'filterCountried',
+        value: function filterCountried(data, notParticipating) {
+            if (notParticipating.length > 0) {
+                var _data = [];
+                for (var i = 0; i < data.length; i++) {
+                    if (notParticipating.indexOf(data[i].country) === -1) {
+                        _data.push(data[i]);
+                    }
+                }
+                return _data;
+            } else {
+                return data;
+            }
+        }
+    }]);
+
+    return FlightControl;
 }();
 
 exports.default = FlightControl;
@@ -1391,7 +1406,7 @@ exports.default = Template;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
@@ -1428,178 +1443,182 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @type {Object}
  */
 var defaults = {
-  lang: 'es',
-  d1: null,
-  bookingPage: null,
-  coupon: null,
-  origin: null,
-  destination: null,
-  destinationName: null,
-  originName: null,
-  analytics: false,
-  collapsable: true,
-  nativeSelect: false,
-  widgetPosition: { my: 'left bottom', at: 'left top' },
-  datepickerPosition: 'top',
-  templatePath: '/bower_components/copaair-widgets/templates',
-  languagePath: '/bower_components/copaair-widgets/lang/',
-  originSelected: false,
-  destinationSelected: false,
-  isMobile: false,
-  onload: function onload() {}
+    lang: 'es',
+    d1: null,
+    bookingPage: null,
+    coupon: null,
+    origin: null,
+    destination: null,
+    destinationName: null,
+    originName: null,
+    analytics: false,
+    collapsable: true,
+    nativeSelect: false,
+    widgetPosition: { my: 'left bottom', at: 'left top' },
+    datepickerPosition: 'top',
+    templatePath: '/bower_components/copaair-widgets/templates',
+    languagePath: '/bower_components/copaair-widgets/lang/',
+    originSelected: false,
+    destinationSelected: false,
+    isMobile: false,
+    notParticipating: [],
+    onload: function onload() {}
 };
 
 var Booking = function () {
 
-  /**
-   * Widget constructor
-   * @param {Object} selector element DOM object
-   * @param {Object} options  Options passed on plugin instance
-   */
+    /**
+     * Widget constructor
+     * @param {Object} selector element DOM object
+     * @param {Object} options  Options passed on plugin instance
+     */
 
-  function Booking(element, options) {
-    var _this = this;
+    function Booking(element, options) {
+        var _this = this;
 
-    _classCallCheck(this, Booking);
+        _classCallCheck(this, Booking);
 
-    this.$booking = (0, _jquery2.default)(element);
-    this.options = _jquery2.default.extend({}, defaults, options);
-    this._defaults = defaults;
+        this.$booking = (0, _jquery2.default)(element);
+        this.options = _jquery2.default.extend({}, defaults, options);
+        this._defaults = defaults;
 
-    return new _Template2.default('booking', {
-      lang: this.options.lang,
-      origin: this.options.origin,
-      destination: this.options.destination,
-      destinationName: this.options.destinationName, // temporary fix for static destination
-      originName: this.options.originName, // temporary fix for static destination
-      src: this.options.templatePath,
-      callback: function callback(html) {
-        _this.$booking.html(html);
+        return new _Template2.default('booking', {
+            lang: this.options.lang,
+            origin: this.options.origin,
+            destination: this.options.destination,
+            destinationName: this.options.destinationName, // temporary fix for static destination
+            originName: this.options.originName, // temporary fix for static destination
+            src: this.options.templatePath,
+            notParticipating: this.options.notParticipating,
+            callback: function callback(html) {
+                _this.$booking.html(html);
 
-        // When finished, build all the widgets
-        _this.setupSelectMenus();
+                // When finished, build all the widgets
+                _this.setupSelectMenus();
 
-        var formHelper = new _FormHelper2.default({
-          datepicker: datepicker,
-          origin: _this.options.origin,
-          destination: _this.options.destination,
-          booking: _this.$booking,
-          d1: _this.options.d1,
-          lang: _this.options.lang,
-          analytics: _this.options.analytics,
-          bookingPage: _this.options.bookingPage
+                var formHelper = new _FormHelper2.default({
+                    datepicker: datepicker,
+                    origin: _this.options.origin,
+                    destination: _this.options.destination,
+                    booking: _this.$booking,
+                    d1: _this.options.d1,
+                    lang: _this.options.lang,
+                    analytics: _this.options.analytics,
+                    bookingPage: _this.options.bookingPage,
+                    notParticipating: _this.options.notParticipating
+                });
+
+                // setup datepicker
+                var datepicker = new _Datepicker2.default({
+                    lang: _this.options.lang,
+                    position: _this.options.datepickerPosition,
+                    booking: _this.$booking,
+                    formHelper: formHelper,
+                    isMobile: _this.options.isMobile
+                });
+
+                datepicker.render();
+
+                if (_this.options.coupon) {
+                    formHelper.setCoupon(_this.options.coupon);
+                }
+
+                // Autocomplete widgets
+                _this.initAutocomplete(formHelper);
+
+                // Bind events
+                _this.bookingEvents();
+
+                _this.options.onload();
+            }
         });
+    }
 
-        // setup datepicker
-        var datepicker = new _Datepicker2.default({
-          lang: _this.options.lang,
-          position: _this.options.datepickerPosition,
-          booking: _this.$booking,
-          formHelper: formHelper,
-          isMobile: _this.options.isMobile
-        });
+    /**
+     * Setup autocomplete destination widgets
+     * @see module:Autocomplete
+     */
 
-        datepicker.render();
 
-        if (_this.options.coupon) {
-          formHelper.setCoupon(_this.options.coupon);
+    _createClass(Booking, [{
+        key: 'initAutocomplete',
+        value: function initAutocomplete(formHelper) {
+            var _this2 = this;
+
+            // Init class with options
+            var autocomplete = new _Autocomplete2.default({
+                lang: this.options.lang,
+                originSelected: this.options.originSelected,
+                destinationSelected: this.options.destinationSelected,
+                notParticipating: this.options.notParticipating,
+                select: function select(e, ui) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // set display value to the input
+                    (0, _jquery2.default)(this).val(ui.item.display);
+                    // set actual value at the booking object
+                    formHelper.setBounds((0, _jquery2.default)(this).data('input-field'), ui.item.value);
+                },
+
+                position: this.options.widgetPosition,
+                appendTo: this.$booking
+            });
+
+            // Build
+            autocomplete.start(function () {
+                _this2.$booking.find('.js-booking-autocomplete').each(function bookingAutocomplete() {
+                    autocomplete.render(this);
+                });
+            });
         }
 
-        // Autocomplete widgets
-        _this.initAutocomplete(formHelper);
+        /**
+         * Replaces select menus with custom UI widgets
+         */
 
-        // Bind events
-        _this.bookingEvents();
+    }, {
+        key: 'setupSelectMenus',
+        value: function setupSelectMenus() {
+            if (!this.options.nativeSelect) {
+                this.$booking.find('.js-selectmenu').selectmenu({
+                    position: this.options.widgetPosition
+                });
+            }
 
-        _this.options.onload();
-      }
-    });
-  }
+            return this;
+        }
 
-  /**
-   * Setup autocomplete destination widgets
-   * @see module:Autocomplete
-   */
+        /**
+         * Bind events related to booking interaction
+         */
 
+    }, {
+        key: 'bookingEvents',
+        value: function bookingEvents() {
+            var $booking = this.$booking;
+            var $toggle = this.$booking.find('.js-copaair-toggle');
 
-  _createClass(Booking, [{
-    key: 'initAutocomplete',
-    value: function initAutocomplete(formHelper) {
-      var _this2 = this;
+            if (this.options.collapsable) {
+                // Show bottom row when any input gets focus
+                $booking.on('focus.copaair', 'input', function () {
+                    $booking.addClass('copaair-widget-open');
+                    $toggle.removeClass('copaair-hidden');
+                });
 
-      // Init class with options
-      var autocomplete = new _Autocomplete2.default({
-        lang: this.options.lang,
-        originSelected: this.options.originSelected,
-        destinationSelected: this.options.destinationSelected,
-        select: function select(e, ui) {
-          e.preventDefault();
-          e.stopPropagation();
+                // Clicking anywhere in the document hides bottom row
+                $booking.on('click.copaair', '.js-copaair-close', function (e) {
+                    e.preventDefault();
+                    $booking.removeClass('copaair-widget-open');
+                    $toggle.addClass('copaair-hidden');
+                });
+            } else {
+                $toggle.removeClass('copaair-hidden');
+            }
+        }
+    }]);
 
-          // set display value to the input
-          (0, _jquery2.default)(this).val(ui.item.display);
-          // set actual value at the booking object
-          formHelper.setBounds((0, _jquery2.default)(this).data('input-field'), ui.item.value);
-        },
-
-        position: this.options.widgetPosition,
-        appendTo: this.$booking
-      });
-
-      // Build
-      autocomplete.start(function () {
-        _this2.$booking.find('.js-booking-autocomplete').each(function bookingAutocomplete() {
-          autocomplete.render(this);
-        });
-      });
-    }
-
-    /**
-     * Replaces select menus with custom UI widgets
-     */
-
-  }, {
-    key: 'setupSelectMenus',
-    value: function setupSelectMenus() {
-      if (!this.options.nativeSelect) {
-        this.$booking.find('.js-selectmenu').selectmenu({
-          position: this.options.widgetPosition
-        });
-      }
-
-      return this;
-    }
-
-    /**
-     * Bind events related to booking interaction
-     */
-
-  }, {
-    key: 'bookingEvents',
-    value: function bookingEvents() {
-      var $booking = this.$booking;
-      var $toggle = this.$booking.find('.js-copaair-toggle');
-
-      if (this.options.collapsable) {
-        // Show bottom row when any input gets focus
-        $booking.on('focus.copaair', 'input', function () {
-          $booking.addClass('copaair-widget-open');
-          $toggle.removeClass('copaair-hidden');
-        });
-
-        // Clicking anywhere in the document hides bottom row
-        $booking.on('click.copaair', '.js-copaair-close', function (e) {
-          e.preventDefault();
-          $booking.removeClass('copaair-widget-open');
-          $toggle.addClass('copaair-hidden');
-        });
-      } else {
-        $toggle.removeClass('copaair-hidden');
-      }
-    }
-  }]);
-
-  return Booking;
+    return Booking;
 }();
 
 exports.default = Booking;
