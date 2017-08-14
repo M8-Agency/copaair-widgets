@@ -1081,10 +1081,10 @@ var FlightControl = function () {
                         _data.push(data[i]);
                     }
                 }
-                console.log("_data: ", _data);
+                console.log("D_data: ", notParticipating, _data);
                 return _data;
             } else {
-                console.log("data: ", data);
+                console.log("data: ", notParticipating, data);
                 return data;
             }
         }
