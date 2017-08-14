@@ -1673,7 +1673,7 @@ var Signup = function () {
 
         this.$form = (0, _jquery2.default)(element);
         this.options = _jquery2.default.extend({}, defaults, options);
-        var _notParticipating = this.option.notParticipating;
+        var _notParticipating = this.options.notParticipating;
         // Load template
         return new _Template2.default('signup', {
             lang: this.options.lang,

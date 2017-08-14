@@ -19,7 +19,7 @@ class Signup {
     constructor(element, options) {
         this.$form = $(element);
         this.options = $.extend({}, defaults, options);
-        var _notParticipating = this.option.notParticipating;
+        var _notParticipating = this.options.notParticipating;
         // Load template
         return new Template('signup', {
             lang: this.options.lang,
