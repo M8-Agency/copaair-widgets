@@ -1081,8 +1081,10 @@ var FlightControl = function () {
                         _data.push(data[i]);
                     }
                 }
+                console.log("_data: ", _data);
                 return _data;
             } else {
+                console.log("data: ", data);
                 return data;
             }
         }
