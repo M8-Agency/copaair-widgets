@@ -34,7 +34,7 @@ class Signup {
                         lang,
                         contentType: $(this).data('content'),
                         selector: $(this),
-                        notParticipating: _notParticipating,
+                        notParticipating: [],
                     })
                     ;
                 });
@@ -107,6 +107,7 @@ class Signup {
                     lang: this.options.lang,
                     data: selected,
                     selector: $('.js-city-selector'),
+                    notParticipating: [],
                 });
             },
         });

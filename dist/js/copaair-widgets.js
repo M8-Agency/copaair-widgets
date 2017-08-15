@@ -384,7 +384,7 @@ var Autocomplete = function () {
             var _this = this;
 
             var flightControl = new _FlightControl2.default({ lang: this.options.lang });
-            console.log('destinationsAutocomplete', this.options.notParticipating);
+            // console.log('destinationsAutocomplete', this.options.notParticipating);
             flightControl.fetch('destinations', this.options.notParticipating, function (destinations) {
                 // Format raw destinations to autocomplete structure
                 _this.options.source = _this.format(destinations.list);
@@ -548,7 +548,7 @@ var DataMenu = function () {
 
             if (!this.options.data) {
                 var flightControl = new _FlightControl2.default({ lang: this.options.lang });
-                console.log('dataMenu', this.options.notParticipating);
+                // console.log('dataMenu', this.options.contentType);
                 flightControl.fetch(this.options.contentType, this.options.notParticipating, function (data) {
                     // Format raw destinations to autocomplete structure
                     _this.options.source = _this.format(data.list);
@@ -1002,6 +1002,8 @@ var FlightControl = function () {
      * @param  {Function} cb  callback
      * @return {Function} callback
      */
+    /*TODO: Separate storage by action so as to not remove storage but be able to pass different countries.*/
+    /*TODO: REMOVE COMMENT TO ALLOW FILTERING*/
 
 
     _createClass(FlightControl, [{
@@ -1021,25 +1023,25 @@ var FlightControl = function () {
             if (typeof IE9Data !== 'undefined') {
                 var data = IE9Data[resourceName];
                 this.sortNames(data);
-                var _data = this.filterCountried(data, notParticipating);
+                // var _data = this.filterCountried(data, notParticipating);
                 if (this.options.storage) {
-                    storeWidthExpiration.set(resourceName, _data, this.options.storageExpiration);
-                    storeWidthExpiration.set(resourceName + '.count', _data.length, this.options.storageExpiration);
+                    storeWidthExpiration.set(resourceName, data, this.options.storageExpiration);
+                    storeWidthExpiration.set(resourceName + '.count', data.length, this.options.storageExpiration);
                 }
-                resourceValue.list = _data;
-                resourceValue.count = _data.length;
+                resourceValue.list = data;
+                resourceValue.count = data.length;
 
                 cb(resourceValue);
             } else {
                 _jquery2.default.getJSON(this.options.api[resourceName], function (data) {
                     _this.sortNames(data);
-                    var _data = _this.filterCountried(data, notParticipating);
+                    // var _data = this.filterCountried(data, notParticipating);
                     if (_this.options.storage) {
-                        storeWidthExpiration.set(resourceName, _data, _this.options.storageExpiration);
-                        storeWidthExpiration.set(resourceName + '.count', _data.length, _this.options.storageExpiration);
+                        storeWidthExpiration.set(resourceName, data, _this.options.storageExpiration);
+                        storeWidthExpiration.set(resourceName + '.count', data.length, _this.options.storageExpiration);
                     }
-                    resourceValue.list = _data;
-                    resourceValue.count = _data.length;
+                    resourceValue.list = data;
+                    resourceValue.count = data.length;
 
                     cb(resourceValue);
                 });
@@ -1075,16 +1077,20 @@ var FlightControl = function () {
         key: 'filterCountried',
         value: function filterCountried(data, notParticipating) {
             if (notParticipating.length > 0) {
+                var identifier = 'country';
+                if (typeof data[0][identifier] === 'undefined') {
+                    identifier = 'id';
+                }
                 var _data = [];
                 for (var i = 0; i < data.length; i++) {
-                    if (notParticipating.indexOf(data[i].country) === -1) {
+                    if (notParticipating.indexOf(data[i][identifier]) === -1) {
                         _data.push(data[i]);
                     }
                 }
-                console.log("D_data: ", notParticipating, _data);
+                // console.log("D_data: ", notParticipating, _data);
                 return _data;
             } else {
-                console.log("data: ", notParticipating, data);
+                // console.log("data: ", notParticipating, data);
                 return data;
             }
         }
@@ -1264,7 +1270,7 @@ var FormHelper = function () {
         error: false,
         bag: []
       };
-      console.log(this.options.inputs);
+      // console.log(this.options.inputs);
       for (var input in this.options.inputs) {
         if (!this.options.inputs[input] && this.options.inputs[input] !== 0) {
           var currentError = {};
@@ -1688,7 +1694,7 @@ var Signup = function () {
                         lang: lang,
                         contentType: (0, _jquery2.default)(this).data('content'),
                         selector: (0, _jquery2.default)(this),
-                        notParticipating: _notParticipating
+                        notParticipating: []
                     });
                 });
 
@@ -1766,7 +1772,8 @@ var Signup = function () {
                     return new _DataMenu2.default({
                         lang: this.options.lang,
                         data: selected,
-                        selector: (0, _jquery2.default)('.js-city-selector')
+                        selector: (0, _jquery2.default)('.js-city-selector'),
+                        notParticipating: []
                     });
                 }
             });

@@ -31,7 +31,7 @@ class Autocomplete {
      */
     start(cb) {
         const flightControl = new FlightControl({lang: this.options.lang});
-        console.log('destinationsAutocomplete', this.options.notParticipating);
+        // console.log('destinationsAutocomplete', this.options.notParticipating);
         flightControl.fetch('destinations', this.options.notParticipating, (destinations) => {
             // Format raw destinations to autocomplete structure
             this.options.source = this.format(destinations.list);

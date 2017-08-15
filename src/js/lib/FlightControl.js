@@ -62,6 +62,8 @@ class FlightControl {
      * @param  {Function} cb  callback
      * @return {Function} callback
      */
+    /*TODO: Separate storage by action so as to not remove storage but be able to pass different countries.*/
+    /*TODO: REMOVE COMMENT TO ALLOW FILTERING*/
     fetch(resourceName, notParticipating, cb) {
         const resourceValue = {};
 
@@ -76,27 +78,27 @@ class FlightControl {
         if (typeof(IE9Data) !== 'undefined') {
             const data = IE9Data[resourceName];
             this.sortNames(data);
-            var _data = this.filterCountried(data, notParticipating);
+            // var _data = this.filterCountried(data, notParticipating);
             if (this.options.storage) {
-                storeWidthExpiration.set(resourceName, _data, this.options.storageExpiration);
-                storeWidthExpiration.set(`${resourceName}.count`, _data.length,
+                storeWidthExpiration.set(resourceName, data, this.options.storageExpiration);
+                storeWidthExpiration.set(`${resourceName}.count`, data.length,
                     this.options.storageExpiration);
             }
-            resourceValue.list = _data;
-            resourceValue.count = _data.length;
+            resourceValue.list = data;
+            resourceValue.count = data.length;
 
             cb(resourceValue);
         } else {
             $.getJSON(this.options.api[resourceName], (data) => {
                 this.sortNames(data);
-                var _data = this.filterCountried(data, notParticipating);
+                // var _data = this.filterCountried(data, notParticipating);
                 if (this.options.storage) {
-                    storeWidthExpiration.set(resourceName, _data, this.options.storageExpiration);
-                    storeWidthExpiration.set(`${resourceName}.count`, _data.length,
+                    storeWidthExpiration.set(resourceName, data, this.options.storageExpiration);
+                    storeWidthExpiration.set(`${resourceName}.count`, data.length,
                         this.options.storageExpiration);
                 }
-                resourceValue.list = _data;
-                resourceValue.count = _data.length;
+                resourceValue.list = data;
+                resourceValue.count = data.length;
 
                 cb(resourceValue);
             });
@@ -124,16 +126,20 @@ class FlightControl {
      */
     filterCountried(data, notParticipating) {
         if (notParticipating.length > 0) {
+            var identifier = 'country';
+            if(typeof data[0][identifier] === 'undefined'){
+                identifier = 'id';
+            }
             var _data = [];
             for (var i = 0; i < data.length; i++) {
-                if (notParticipating.indexOf(data[i].country) === -1) {
+                if (notParticipating.indexOf(data[i][identifier]) === -1) {
                     _data.push(data[i]);
                 }
             }
-            console.log("D_data: ", notParticipating, _data);
+            // console.log("D_data: ", notParticipating, _data);
             return _data;
         } else {
-            console.log("data: ", notParticipating, data);
+            // console.log("data: ", notParticipating, data);
             return data;
         }
 

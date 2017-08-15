@@ -26,7 +26,7 @@ class DataMenu {
     setup(cb) {
         if (!this.options.data) {
             const flightControl = new FlightControl({lang: this.options.lang});
-            console.log('dataMenu', this.options.notParticipating);
+            // console.log('dataMenu', this.options.contentType);
             flightControl.fetch(this.options.contentType, this.options.notParticipating, (data) => {
                 // Format raw destinations to autocomplete structure
                 this.options.source = this.format(data.list);

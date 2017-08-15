@@ -139,7 +139,7 @@ class FormHelper {
       error: false,
       bag: [],
     };
-    console.log(this.options.inputs);
+    // console.log(this.options.inputs);
     for (const input in this.options.inputs) {
       if (!this.options.inputs[input] && this.options.inputs[input] !== 0) {
         const currentError = {};
