@@ -1801,7 +1801,10 @@ var Signup = function () {
             _jquery2.default.ajax({
                 data: data,
                 type: 'POST',
-                url: 'https://flightcontrol.io/api/signup/add'
+                url: 'https://flightcontrol.io/api/signup/add',
+                error: function error(xhr, ajaxOptions, thrownError) {
+                    console.log("POST ERROR: ", xhr, ajaxOptions, thrownError);
+                }
             }).done(function () {
                 container.fadeOut();
                 if (typeof ga !== 'undefined') {

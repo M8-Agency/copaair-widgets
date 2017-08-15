@@ -135,6 +135,9 @@ class Signup {
             data,
             type: 'POST',
             url: 'https://flightcontrol.io/api/signup/add',
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log("POST ERROR: ",xhr, ajaxOptions, thrownError);
+            }
         }).done(() => {
             container.fadeOut();
             if (typeof(ga) !== 'undefined') {
