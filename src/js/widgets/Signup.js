@@ -126,11 +126,11 @@ class Signup {
         data.fullname = `${data.first_name} ${data.last_name}`;
         data.source = this.options.source;
         data.language = this.options.lang.toUpperCase();
-        data.city = this.options.city;
-        data.country = this.options.country;
+        /*TODO: WHY WAS THIS LIKE THIS WHEN CITY/COUNTRY ARE NOT BEING PASSED AS OPTIONS*/
+        // data.city = this.options.city;
+        // data.country = this.options.country;
 
         const container = this.options.container;
-        console.log("submitForm: ",data);
         $.ajax({
             data,
             type: 'POST',
