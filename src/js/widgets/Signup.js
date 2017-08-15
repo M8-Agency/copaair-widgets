@@ -100,9 +100,9 @@ class Signup {
                         selected.push(destinations.val[d]);
                     }
                 }
-
-                $('.js-city-selector').selectmenu('refresh');
-
+                setTimeout(function () {
+                    $('.js-city-selector').selectmenu('refresh');
+                },200);
                 return new DataMenu({
                     lang: this.options.lang,
                     data: selected,

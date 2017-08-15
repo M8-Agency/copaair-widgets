@@ -1766,9 +1766,9 @@ var Signup = function () {
                             selected.push(destinations.val[d]);
                         }
                     }
-
-                    (0, _jquery2.default)('.js-city-selector').selectmenu('refresh');
-
+                    setTimeout(function () {
+                        (0, _jquery2.default)('.js-city-selector').selectmenu('refresh');
+                    }, 200);
                     return new _DataMenu2.default({
                         lang: this.options.lang,
                         data: selected,
