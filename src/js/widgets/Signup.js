@@ -130,7 +130,7 @@ class Signup {
         data.country = this.options.country;
 
         const container = this.options.container;
-
+        console.log("submitForm: ",data);
         $.ajax({
             data,
             type: 'POST',

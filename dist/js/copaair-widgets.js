@@ -1797,7 +1797,7 @@ var Signup = function () {
             data.country = this.options.country;
 
             var container = this.options.container;
-
+            console.log("submitForm: ", data);
             _jquery2.default.ajax({
                 data: data,
                 type: 'POST',
