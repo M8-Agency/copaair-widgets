@@ -1191,11 +1191,21 @@ var FormHelper = function () {
                 this.setCoupon(coupon);
             }
             var loc = new URL(window.location.href);
+            var path = window.location.path;
             var utm_source = "";
-            var utm_medium = "";
+            var utm_medium = "&utm_medium=referral";
             var utm_campaign = "";
             var utm_term = "";
             var utm_content = "";
+            if (path.indexOf('/en') === 0) {
+                utm_campaign = "utm_campaign=PRO_MLB_MM_en";
+            }
+            if (path.indexOf('/es') === 0) {
+                utm_campaign = "utm_campaign=PRO_MLB_MM_es";
+            }
+            if (path.indexOf('/pt') === 0) {
+                utm_campaign = "utm_campaign=PRO_MLB_BR_pt";
+            }
             if (loc.searchParams.get("utm_source")) {
                 utm_source = "&utm_source=" + loc.searchParams.get("utm_source");
             }
