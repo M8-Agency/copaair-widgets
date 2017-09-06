@@ -67,7 +67,7 @@ class FormHelper {
             this.setCoupon(coupon);
         }
         var loc = new URL(window.location.href);
-        var path = window.location.path;
+        var path =window.location.pathname;
         var utm_source = "";
         var utm_medium = "&utm_medium=referral";
         var utm_campaign = "";
