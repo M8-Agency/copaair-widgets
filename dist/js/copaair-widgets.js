@@ -1107,7 +1107,7 @@ exports.default = FlightControl;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1122,42 +1122,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var ga = window.ga;
 var defaults = {
-  lang: 'es',
-  origin: 'all',
-  destination: 'all',
-  d1: null,
-  bookingPage: 'Booking Engine',
-  analytics: false,
-  inputs: {
-    tripType: 'RT',
-    flexibleSearch: true,
-    pos: 'CMGS',
-    'guestTypes[0].type': 'ADT',
-    'guestTypes[1].type': 'CNN',
-    'guestTypes[2].type': 'INF',
-    'guestTypes[0].amount': 1,
-    'guestTypes[1].amount': 0,
-    'guestTypes[2].amount': 0,
-    'outboundOption.departureDay': null,
-    'outboundOption.departureMonth': null,
-    'outboundOption.departureYear': null,
-    'inboundOption.departureDay': null,
-    'inboundOption.departureMonth': null,
-    'inboundOption.departureYear': null,
+    lang: 'es',
+    origin: 'all',
+    destination: 'all',
+    d1: null,
+    bookingPage: 'Booking Engine',
+    analytics: false,
+    inputs: {
+        tripType: 'RT',
+        flexibleSearch: true,
+        pos: 'CMGS',
+        'guestTypes[0].type': 'ADT',
+        'guestTypes[1].type': 'CNN',
+        'guestTypes[2].type': 'INF',
+        'guestTypes[0].amount': 1,
+        'guestTypes[1].amount': 0,
+        'guestTypes[2].amount': 0,
+        'outboundOption.departureDay': null,
+        'outboundOption.departureMonth': null,
+        'outboundOption.departureYear': null,
+        'inboundOption.departureDay': null,
+        'inboundOption.departureMonth': null,
+        'inboundOption.departureYear': null,
 
-    // Origin
-    'outboundOption.originLocationCode': null,
-    'inboundOption.destinationLocationCode': null,
+        // Origin
+        'outboundOption.originLocationCode': null,
+        'inboundOption.destinationLocationCode': null,
 
-    // Destination
-    'outboundOption.destinationLocationCode': null,
-    'inboundOption.originLocationCode': null,
+        // Destination
+        'outboundOption.destinationLocationCode': null,
+        'inboundOption.originLocationCode': null,
 
-    // Cabin Class (Business|Economy)
-    cabinClass: 'Economy',
-    lang: 'es'
-  },
-  formUrl: 'https://bookings.copaair.com/CMGS/AirLowFareSearchExternal.do?'
+        // Cabin Class (Business|Economy)
+        cabinClass: 'Economy',
+        lang: 'es'
+    },
+    formUrl: 'https://bookings.copaair.com/CMGS/AirLowFareSearchExternal.do?'
 };
 
 /**
@@ -1165,163 +1165,184 @@ var defaults = {
  */
 
 var FormHelper = function () {
-  function FormHelper(options) {
-    _classCallCheck(this, FormHelper);
+    function FormHelper(options) {
+        _classCallCheck(this, FormHelper);
 
-    this.options = _jquery2.default.extend({}, defaults, options);
-    this._defaults = defaults;
+        this.options = _jquery2.default.extend({}, defaults, options);
+        this._defaults = defaults;
 
-    // set defautls values
-    this.setDefaultBounds();
+        // set defautls values
+        this.setDefaultBounds();
 
-    this.options.inputs.lang = this.options.lang;
+        this.options.inputs.lang = this.options.lang;
 
-    // load events related with form helper and other modules
-    this.events();
-  }
+        // load events related with form helper and other modules
+        this.events();
+    }
 
-  _createClass(FormHelper, [{
-    key: 'process',
-    value: function process() {
-      var url = this.options.formUrl;
-      var validation = this.validationError();
-      var coupon = this.options.booking.data('coupon');
+    _createClass(FormHelper, [{
+        key: 'process',
+        value: function process() {
+            var url = this.options.formUrl;
+            var validation = this.validationError();
+            var coupon = this.options.booking.data('coupon');
 
-      if (coupon && !this.options.inputs.coupon) {
-        this.setCoupon(coupon);
-      }
+            if (coupon && !this.options.inputs.coupon) {
+                this.setCoupon(coupon);
+            }
+            var loc = new URL(window.location.href);
+            var utm_source = "";
+            var utm_medium = "";
+            var utm_campaign = "";
+            var utm_term = "";
+            var utm_content = "";
+            if (loc.searchParams.get("utm_source")) {
+                utm_source = "&utm_source=" + loc.searchParams.get("utm_source");
+            }
+            if (loc.searchParams.get("utm_medium")) {
+                utm_medium = "&utm_medium=" + loc.searchParams.get("utm_medium");
+            }
+            if (loc.searchParams.get("utm_campaign")) {
+                utm_campaign = "&utm_campaign=" + loc.searchParams.get("utm_campaign");
+            }
+            if (loc.searchParams.get("utm_term")) {
+                utm_term = "&utm_term=" + loc.searchParams.get("utm_term");
+            }
+            if (loc.searchParams.get("utm_content")) {
+                utm_content = "&utm_content=" + loc.searchParams.get("utm_content");
+            }
 
-      var httpQuery = _jquery2.default.param(this.options.inputs);
-      httpQuery += '&' + _jquery2.default.param({ d1: this.options.d1 });
+            var httpQuery = _jquery2.default.param(this.options.inputs);
+            httpQuery += '&' + _jquery2.default.param({ d1: this.options.d1 }) + utm_source + utm_medium + utm_campaign + utm_term + utm_content;
 
-      if (validation.error) {
-        // handle validation error messages
-        if (this.options.analytics && typeof ga !== 'undefined') {
-          ga('send', 'event', this.options.bookingPage, 'error', 'User left required fields blank');
+            if (validation.error) {
+                // handle validation error messages
+                if (this.options.analytics && typeof ga !== 'undefined') {
+                    ga('send', 'event', this.options.bookingPage, 'error', 'User left required fields blank');
+                }
+            } else {
+                // no errors, forward form values to copa
+                // console.log(httpQuery);
+                if (this.options.analytics && typeof ga !== 'undefined') {
+                    ga('send', 'event', this.options.bookingPage, 'click', 'Search flights');
+                }
+
+                var searchWindow = window.open(url + httpQuery, '_blank');
+                searchWindow.focus();
+            }
         }
-      } else {
-        // no errors, forward form values to copa
-        // console.log(httpQuery);
-        if (this.options.analytics && typeof ga !== 'undefined') {
-          ga('send', 'event', this.options.bookingPage, 'click', 'Search flights');
+    }, {
+        key: 'setDefaultBounds',
+        value: function setDefaultBounds() {
+            if (this.options.origin !== 'all') {
+                this.setBounds('origin', this.options.origin);
+            }
+
+            if (this.options.destination !== 'all') {
+                this.setBounds('destination', this.options.destination);
+            }
         }
+    }, {
+        key: 'setBounds',
+        value: function setBounds(bound, location) {
+            if (bound === 'origin') {
+                this.options.inputs['outboundOption.originLocationCode'] = location;
+                this.options.inputs['inboundOption.destinationLocationCode'] = location;
+            }
 
-        var searchWindow = window.open(url + httpQuery, '_blank');
-        searchWindow.focus();
-      }
-    }
-  }, {
-    key: 'setDefaultBounds',
-    value: function setDefaultBounds() {
-      if (this.options.origin !== 'all') {
-        this.setBounds('origin', this.options.origin);
-      }
-
-      if (this.options.destination !== 'all') {
-        this.setBounds('destination', this.options.destination);
-      }
-    }
-  }, {
-    key: 'setBounds',
-    value: function setBounds(bound, location) {
-      if (bound === 'origin') {
-        this.options.inputs['outboundOption.originLocationCode'] = location;
-        this.options.inputs['inboundOption.destinationLocationCode'] = location;
-      }
-
-      if (bound === 'destination') {
-        this.options.inputs['outboundOption.destinationLocationCode'] = location;
-        this.options.inputs['inboundOption.originLocationCode'] = location;
-      }
-    }
-  }, {
-    key: 'setCabinClass',
-    value: function setCabinClass(target) {
-      this.options.inputs.cabinClass = (0, _jquery2.default)(target).val();
-    }
-  }, {
-    key: 'setPassengersAmount',
-    value: function setPassengersAmount(type, value) {
-      switch (type) {
-        case 'child':
-          this.options.inputs['guestTypes[1].amount'] = value;
-          break;
-        case 'infant':
-          this.options.inputs['guestTypes[2].amount'] = value;
-          break;
-        default:
-          this.options.inputs['guestTypes[0].amount'] = value;
-      }
-    }
-  }, {
-    key: 'setCoupon',
-    value: function setCoupon(coupon) {
-      this.options.inputs.coupon = coupon;
-    }
-  }, {
-    key: 'setD1',
-    value: function setD1() {
-      this.options.inputs.d1 = this.options.d1;
-    }
-  }, {
-    key: 'validationError',
-    value: function validationError() {
-      var errors = {
-        error: false,
-        bag: []
-      };
-      // console.log(this.options.inputs);
-      for (var input in this.options.inputs) {
-        if (!this.options.inputs[input] && this.options.inputs[input] !== 0) {
-          var currentError = {};
-          currentError.field = input;
-          currentError.message = 'The input ' + input + ' must have some value';
-          errors.bag.push(currentError);
-          errors.error = true;
+            if (bound === 'destination') {
+                this.options.inputs['outboundOption.destinationLocationCode'] = location;
+                this.options.inputs['inboundOption.originLocationCode'] = location;
+            }
         }
-      }
-
-      return errors;
-    }
-  }, {
-    key: 'events',
-    value: function events() {
-      var _this = this;
-
-      this.options.booking.find('.js-cabin-class').on('click', function (e) {
-        _this.setCabinClass(e.target);
-      });
-
-      this.options.booking.find('.js-adults-amount').selectmenu({
-        change: function change(e, ui) {
-          _this.setPassengersAmount('adult', ui.item.value);
+    }, {
+        key: 'setCabinClass',
+        value: function setCabinClass(target) {
+            this.options.inputs.cabinClass = (0, _jquery2.default)(target).val();
         }
-      });
-
-      this.options.booking.find('.js-children-amount').selectmenu({
-        change: function change(e, ui) {
-          _this.setPassengersAmount('child', ui.item.value);
+    }, {
+        key: 'setPassengersAmount',
+        value: function setPassengersAmount(type, value) {
+            switch (type) {
+                case 'child':
+                    this.options.inputs['guestTypes[1].amount'] = value;
+                    break;
+                case 'infant':
+                    this.options.inputs['guestTypes[2].amount'] = value;
+                    break;
+                default:
+                    this.options.inputs['guestTypes[0].amount'] = value;
+            }
         }
-      });
-
-      this.options.booking.find('.js-infants-amount').selectmenu({
-        change: function change(e, ui) {
-          _this.setPassengersAmount('infant', ui.item.value);
+    }, {
+        key: 'setCoupon',
+        value: function setCoupon(coupon) {
+            this.options.inputs.coupon = coupon;
         }
-      });
+    }, {
+        key: 'setD1',
+        value: function setD1() {
+            this.options.inputs.d1 = this.options.d1;
+        }
+    }, {
+        key: 'validationError',
+        value: function validationError() {
+            var errors = {
+                error: false,
+                bag: []
+            };
+            // console.log(this.options.inputs);
+            for (var input in this.options.inputs) {
+                if (!this.options.inputs[input] && this.options.inputs[input] !== 0) {
+                    var currentError = {};
+                    currentError.field = input;
+                    currentError.message = 'The input ' + input + ' must have some value';
+                    errors.bag.push(currentError);
+                    errors.error = true;
+                }
+            }
 
-      this.options.booking.find('.js-coupon-code-input').on('change', function (e) {
-        _this.setCoupon(e.target.value);
-      });
+            return errors;
+        }
+    }, {
+        key: 'events',
+        value: function events() {
+            var _this = this;
 
-      this.options.booking.find('.js-submit').on('click', function (e) {
-        e.preventDefault();
-        _this.process();
-      });
-    }
-  }]);
+            this.options.booking.find('.js-cabin-class').on('click', function (e) {
+                _this.setCabinClass(e.target);
+            });
 
-  return FormHelper;
+            this.options.booking.find('.js-adults-amount').selectmenu({
+                change: function change(e, ui) {
+                    _this.setPassengersAmount('adult', ui.item.value);
+                }
+            });
+
+            this.options.booking.find('.js-children-amount').selectmenu({
+                change: function change(e, ui) {
+                    _this.setPassengersAmount('child', ui.item.value);
+                }
+            });
+
+            this.options.booking.find('.js-infants-amount').selectmenu({
+                change: function change(e, ui) {
+                    _this.setPassengersAmount('infant', ui.item.value);
+                }
+            });
+
+            this.options.booking.find('.js-coupon-code-input').on('change', function (e) {
+                _this.setCoupon(e.target.value);
+            });
+
+            this.options.booking.find('.js-submit').on('click', function (e) {
+                e.preventDefault();
+                _this.process();
+            });
+        }
+    }]);
+
+    return FormHelper;
 }();
 
 exports.default = FormHelper;
